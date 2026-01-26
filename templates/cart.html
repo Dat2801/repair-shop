@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng - Motor Việt-Nhật</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">
+</head>
+<body>
+    <!-- Simple Header -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <a href="{{ url_for('home.index') }}" style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700;">
+                🏍️ MOTOR VIỆT-NHẬT
+            </a>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <a href="{{ url_for('shop.products') }}" style="color: white; text-decoration: none; font-weight: 600;">🛍️ Cửa hàng</a>
+                {% if session.get('user_id') %}
+                <a href="{{ url_for('shop.order_history') }}" style="color: white; text-decoration: none; font-weight: 600;">📋 Đơn hàng</a>
+                <a href="{{ url_for('auth.profile') }}" style="color: white; text-decoration: none; font-weight: 600;">👤 {{ session.get('full_name', 'Tài khoản') }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+<div class="cart-container">
+    <div class="cart-header">
+        <h1>🛒 Giỏ Hàng Của Bạn</h1>
+        <a href="{{ url_for('shop.products') }}" class="btn-continue">← Tiếp tục mua sắm</a>
+    </div>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    {% if cart_items %}
+    <div class="cart-content">
+        <div class="cart-items">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tạm tính</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr class="cart-item">
+                        <td class="item-product">
+                            <img src="{{ item.image_url }}" alt="{{ item.name }}" class="item-image">
+                            <div class="item-info">
+                                <a href="{{ url_for('shop.product_detail', product_id=item.product_id) }}" class="item-name">
+                                    {{ item.name }}
+                                </a>
+                                {% if item.stock < item.quantity %}
+                                <p class="stock-warning">⚠️ Chỉ còn {{ item.stock }} sản phẩm</p>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="item-price">{{ "{:,.0f}".format(item.price) }}đ</td>
+                        <td class="item-quantity">
+                            <form method="POST" action="{{ url_for('shop.update_cart', cart_id=item.id) }}" class="quantity-form">
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.stock }}" class="quantity-input" onchange="this.form.submit()">
+                            </form>
+                        </td>
+                        <td class="item-subtotal">{{ "{:,.0f}".format(item.price * item.quantity) }}đ</td>
+                        <td class="item-actions">
+                            <form method="POST" action="{{ url_for('shop.remove_from_cart', cart_id=item.id) }}" onsubmit="return confirm('Xóa sản phẩm này?')">
+                                <button type="submit" class="btn-remove">🗑️</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="cart-summary">
+            <h3>Tổng Đơn Hàng</h3>
+            <div class="summary-row">
+                <span>Tạm tính:</span>
+                <span>{{ "{:,.0f}".format(total) }}đ</span>
+            </div>
+            <div class="summary-row">
+                <span>Phí vận chuyển:</span>
+                <span>Miễn phí</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-row total">
+                <span>Tổng cộng:</span>
+                <span>{{ "{:,.0f}".format(total) }}đ</span>
+            </div>
+            <a href="{{ url_for('shop.checkout') }}" class="btn-checkout">💳 Thanh Toán</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="empty-cart">
+        <div class="empty-icon">🛒</div>
+        <h2>Giỏ hàng trống</h2>
+        <p>Chưa có sản phẩm nào trong giỏ hàng của bạn.</p>
+        <a href="{{ url_for('shop.products') }}" class="btn-shop-now">🛍️ Mua sắm ngay</a>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

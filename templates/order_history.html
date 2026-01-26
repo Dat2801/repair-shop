@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử Mua Hàng - Xưởng Sửa Xe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">
+</head>
+<body>
+    <header style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px 0; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="/" style="text-decoration: none;">
+                <h1 style="color: white; font-size: 2rem; margin: 0;">🏍️ XE MÁY HÒA BÌNH</h1>
+            </a>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <a href="{{ url_for('shop.products') }}" style="color: white; text-decoration: none; font-weight: 600;">🛍️ Cửa hàng</a>
+                <a href="{{ url_for('shop.cart') }}" style="color: white; text-decoration: none; font-weight: 600;">🛒 Giỏ hàng</a>
+                {% if session.get('user_id') %}
+                <a href="{{ url_for('auth.profile') }}" style="color: white; text-decoration: none; font-weight: 600;">👤 {{ session.get('full_name', 'Tài khoản') }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="order-history-container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h1 style="font-size: 2.5rem; color: #2c3e50; margin: 0;">📋 Lịch Sử Mua Hàng</h1>
+            <div style="display: flex; gap: 15px;">
+                <a href="{{ url_for('shop.products') }}" style="padding: 12px 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                    🛍️ Tiếp tục mua hàng
+                </a>
+                <a href="{{ url_for('auth.profile') }}" style="padding: 12px 25px; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid #667eea;">
+                    👤 Trang cá nhân
+                </a>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div style="padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; {% if category == 'success' %}background: #d4edda; color: #155724; border: 1px solid #c3e6cb;{% elif category == 'error' %}background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;{% else %}background: #fff3cd; color: #856404; border: 1px solid #ffeaa7;{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% if orders_with_items %}
+        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 12px; color: white; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 5px;">{{ orders_with_items|length }}</div>
+                    <div style="font-size: 1rem; opacity: 0.9;">Tổng đơn hàng</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); padding: 25px; border-radius: 12px; color: #856404; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 5px;">{{ orders_with_items|selectattr('order.status', 'equalto', 'pending')|list|length }}</div>
+                    <div style="font-size: 1rem; opacity: 0.9;">Đang xử lý</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #55efc4 0%, #00b894 100%); padding: 25px; border-radius: 12px; color: white; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 5px;">
+                        {% set total = namespace(amount=0) %}
+                        {% for item in orders_with_items %}
+                            {% set total.amount = total.amount + item.order.total_amount %}
+                        {% endfor %}
+                        {{ '{:,.0f}'.format(total.amount) }}đ
+                    </div>
+                    <div style="font-size: 1rem; opacity: 0.9;">Tổng chi tiêu</div>
+                </div>
+            </div>
+        </div>
+
+        {% for item in orders_with_items %}
+        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 2px solid #f1f2f6; margin-bottom: 20px;">
+                <div>
+                    <h3 style="margin: 0 0 10px 0; font-size: 1.5rem; color: #2c3e50;">
+                        Đơn hàng #{{ '%05d'|format(item.order.id) }}
+                    </h3>
+                    <p style="margin: 0; color: #7f8c8d; font-size: 0.95rem;">
+                        📅 Ngày đặt: {{ item.order.created_at.strftime('%d/%m/%Y %H:%M') }}
+                    </p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="margin-bottom: 10px;">
+                        {% if item.order.status == 'pending' %}
+                        <span style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); color: #856404; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">
+                            🕐 Đang xử lý
+                        </span>
+                        {% elif item.order.status == 'processing' %}
+                        <span style="background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%); color: white; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">
+                            🚚 Đang giao
+                        </span>
+                        {% elif item.order.status == 'completed' %}
+                        <span style="background: linear-gradient(135deg, #55efc4 0%, #00b894 100%); color: white; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">
+                            ✅ Hoàn thành
+                        </span>
+                        {% elif item.order.status == 'cancelled' %}
+                        <span style="background: linear-gradient(135deg, #ff7675 0%, #d63031 100%); color: white; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">
+                            ❌ Đã hủy
+                        </span>
+                        {% endif %}
+                    </div>
+                    <a href="{{ url_for('shop.order_success', order_id=item.order.id) }}" style="color: #667eea; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                        👁️ Xem chi tiết →
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h4 style="color: #7f8c8d; font-size: 1rem; margin-bottom: 15px;">📦 Sản phẩm:</h4>
+                {% for order_item in item.items %}
+                <div style="display: grid; grid-template-columns: 80px 1fr auto; gap: 15px; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f2f6;">
+                    <img src="{{ order_item.image_url if order_item.image_url else 'https://via.placeholder.com/80x80?text=Product' }}" 
+                         alt="{{ order_item.product_name }}"
+                         onerror="this.src='https://via.placeholder.com/80x80?text=No+Image'"
+                         style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 2px solid #f1f2f6;">
+                    <div>
+                        <div style="font-weight: 600; color: #2c3e50; margin-bottom: 5px;">{{ order_item.product_name }}</div>
+                        <div style="color: #7f8c8d; font-size: 0.9rem;">Số lượng: {{ order_item.quantity }} × {{ '{:,.0f}'.format(order_item.price) }}đ</div>
+                    </div>
+                    <div style="font-weight: 700; color: #667eea; font-size: 1.1rem;">
+                        {{ '{:,.0f}'.format(order_item.quantity * order_item.price) }}đ
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px; margin-bottom: 15px;">
+                <div>
+                    <div style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 5px;">👤 Người nhận:</div>
+                    <div style="font-weight: 600; color: #2c3e50;">{{ item.order.customer_name }}</div>
+                </div>
+                <div>
+                    <div style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 5px;">📱 Số điện thoại:</div>
+                    <div style="font-weight: 600; color: #2c3e50;">{{ item.order.customer_phone }}</div>
+                </div>
+                <div style="grid-column: 1 / -1;">
+                    <div style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 5px;">📍 Địa chỉ giao hàng:</div>
+                    <div style="font-weight: 600; color: #2c3e50;">{{ item.order.customer_address }}</div>
+                </div>
+                {% if item.order.notes %}
+                <div style="grid-column: 1 / -1;">
+                    <div style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 5px;">📝 Ghi chú:</div>
+                    <div style="color: #2c3e50;">{{ item.order.notes }}</div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div style="text-align: right; padding-top: 15px; border-top: 2px solid #f1f2f6;">
+                <span style="font-size: 1.1rem; color: #7f8c8d; margin-right: 10px;">💰 Tổng tiền:</span>
+                <span style="font-size: 1.8rem; font-weight: 700; color: #667eea;">{{ '{:,.0f}'.format(item.order.total_amount) }}đ</span>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <div style="background: white; padding: 60px 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;">
+            <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.5;">📭</div>
+            <h2 style="color: #7f8c8d; margin-bottom: 15px;">Chưa có đơn hàng nào</h2>
+            <p style="color: #95a5a6; margin-bottom: 30px;">Bạn chưa có đơn hàng nào. Hãy khám phá các sản phẩm của chúng tôi!</p>
+            <a href="{{ url_for('shop.products') }}" style="display: inline-block; padding: 15px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 1.1rem;">
+                🛍️ Xem sản phẩm
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer style="background: #2c3e50; color: white; padding: 40px 20px; margin-top: 60px; text-align: center;">
+        <p style="margin: 0; font-size: 1rem;">© 2024 Xưởng Sửa Xe. Địa chỉ: Xóm 4, xã Mai Đình, huyện Sóc Sơn, thành phố Hà Nội</p>
+    </footer>
+
+    <style>
+        @media (max-width: 768px) {
+            .order-history-container h1 {
+                font-size: 1.8rem !important;
+            }
+            .order-history-container > div:first-child {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .order-history-container > div:first-child > div {
+                width: 100%;
+                justify-content: center;
+            }
+            div[style*="grid-template-columns: repeat(3, 1fr)"] {
+                grid-template-columns: 1fr !important;
+            }
+            div[style*="grid-template-columns: 80px 1fr auto"] {
+                grid-template-columns: 60px 1fr !important;
+            }
+            div[style*="grid-template-columns: 80px 1fr auto"] img {
+                width: 60px !important;
+                height: 60px !important;
+            }
+            div[style*="grid-template-columns: 80px 1fr auto"] > div:last-child {
+                grid-column: 2;
+                text-align: left;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</body>
+</html>

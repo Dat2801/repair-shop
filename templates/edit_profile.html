@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh Sửa Thông Tin - Motor Việt-Nhật</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .edit-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .edit-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+        
+        .edit-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .edit-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .edit-form {
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #4a5568;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-group label .required {
+            color: #e53e3e;
+            margin-left: 0.2rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-group .hint {
+            display: block;
+            color: #718096;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+        
+        .btn-save {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-save:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-cancel {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+        
+        .btn-cancel:hover {
+            background: #cbd5e0;
+        }
+        
+        .alert {
+            padding: 0.9rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+        
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .info-note {
+            background: #f7fafc;
+            border-left: 3px solid #667eea;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-note p {
+            margin: 0;
+            color: #4a5568;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        
+        .info-note strong {
+            color: #2d3748;
+        }
+        
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-container">
+        <div class="edit-header">
+            <h2>✏️ Chỉnh Sửa Thông Tin</h2>
+            <p>Cập nhật thông tin cá nhân của bạn</p>
+        </div>
+        
+        <form class="edit-form" method="POST">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="info-note">
+                <p><strong>📌 Lưu ý:</strong> Tên đăng nhập và email không thể thay đổi. Nếu cần hỗ trợ, vui lòng liên hệ quản trị viên.</p>
+            </div>
+            
+            <div class="form-group">
+                <label>Tên đăng nhập</label>
+                <input type="text" value="{{ user.username }}" disabled style="background: #f7fafc; color: #718096;">
+            </div>
+            
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" value="{{ user.email }}" disabled style="background: #f7fafc; color: #718096;">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    Họ và tên <span class="required">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    name="full_name" 
+                    value="{{ user.full_name }}" 
+                    required 
+                    placeholder="Nhập họ tên đầy đủ"
+                    pattern="[A-Za-zÀ-ỹ\s]{3,50}"
+                    title="Họ tên phải từ 3-50 ký tự, chỉ chứa chữ cái và khoảng trắng"
+                >
+                <span class="hint">Họ tên đầy đủ của bạn (3-50 ký tự)</span>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    Số điện thoại <span class="required">*</span>
+                </label>
+                <input 
+                    type="tel" 
+                    name="phone" 
+                    value="{{ user.phone if user.phone else '' }}" 
+                    required 
+                    placeholder="Nhập số điện thoại"
+                    pattern="[0-9]{10,11}"
+                    title="Số điện thoại phải từ 10-11 chữ số"
+                >
+                <span class="hint">Số điện thoại liên hệ (10-11 chữ số)</span>
+            </div>
+            
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                <textarea 
+                    name="address" 
+                    placeholder="Nhập địa chỉ của bạn (tùy chọn)"
+                >{{ user.address if user.address else '' }}</textarea>
+                <span class="hint">Địa chỉ nhà hoặc nơi làm việc (tùy chọn)</span>
+            </div>
+            
+            <div class="btn-group">
+                <button type="submit" class="btn btn-save">💾 Lưu Thay Đổi</button>
+                <a href="{{ url_for('auth.profile') }}" class="btn btn-cancel">↩️ Hủy Bỏ</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

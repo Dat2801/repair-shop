@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt hàng thành công - Xưởng Sửa Xe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">
+</head>
+<body>
+    <header style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px 0; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <a href="/" style="text-decoration: none;">
+                <h1 style="color: white; font-size: 2rem; margin: 0;">🏍️ XE MÁY HÒA BÌNH</h1>
+            </a>
+        </div>
+    </header>
+
+    <div class="order-success-container">
+        <div class="success-icon">✓</div>
+        <h1 class="success-title">Đặt hàng thành công!</h1>
+        <p class="success-message">Cảm ơn bạn đã tin tưởng và đặt hàng tại cửa hàng chúng tôi.<br>Đơn hàng của bạn đang được xử lý và chúng tôi sẽ liên hệ với bạn sớm nhất!</p>
+
+        <div class="order-info-card">
+            <h2>📦 Thông tin đơn hàng</h2>
+            
+            <div class="order-detail">
+                <div class="detail-row">
+                    <span class="label">🔖 Mã đơn hàng:</span>
+                    <span class="value">#{{ '%05d'|format(order.id) }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="label">📅 Ngày đặt:</span>
+                    <span class="value">{{ order.created_at.strftime('%d/%m/%Y %H:%M') }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="label">📊 Trạng thái:</span>
+                    <span class="value"><span class="order-status pending">🕐 Đang xử lý</span></span>
+                </div>
+            </div>
+
+            <h3>🚚 Thông tin giao hàng</h3>
+            
+            <div class="order-detail">
+                <div class="detail-row">
+                    <span class="label">👤 Họ tên:</span>
+                    <span class="value">{{ order.customer_name }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="label">📱 Số điện thoại:</span>
+                    <span class="value">{{ order.customer_phone }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="label">📍 Địa chỉ:</span>
+                    <span class="value">{{ order.customer_address }}</span>
+                </div>
+                
+                {% if order.notes %}
+                <div class="detail-row">
+                    <span class="label">📝 Ghi chú:</span>
+                    <span class="value">{{ order.notes }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="info-boxes">
+                <div class="info-box">
+                    <div class="info-box-icon">⏱️</div>
+                    <div class="info-box-title">Thời gian dự kiến</div>
+                    <div class="info-box-text">2-3 ngày làm việc</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-box-icon">💳</div>
+                    <div class="info-box-title">Thanh toán</div>
+                    <div class="info-box-text">COD - Thu tiền tận nơi</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-box-icon">📞</div>
+                    <div class="info-box-title">Hỗ trợ</div>
+                    <div class="info-box-text">0986 531 666</div>
+                </div>
+            </div>
+
+            <h3>🛍️ Chi tiết sản phẩm</h3>
+            
+            <table class="order-items-table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th style="text-align: center;">SL</th>
+                        <th style="text-align: right;">Đơn giá</th>
+                        <th style="text-align: right;">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order_items %}
+                    <tr>
+                        <td>{{ item.product_name }}</td>
+                        <td style="text-align: center;">{{ item.quantity }}</td>
+                        <td style="text-align: right;">{{ '{:,.0f}'.format(item.price) }}đ</td>
+                        <td style="text-align: right;">{{ '{:,.0f}'.format(item.quantity * item.price) }}đ</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td colspan="3">💰 Tổng cộng:</td>
+                        <td>{{ '{:,.0f}'.format(order.total_amount) }}đ</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <button class="btn-print" onclick="window.print()">🖨️ In đơn hàng</button>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{{ url_for('shop.products') }}" class="btn-continue-shopping">
+                🛒 Tiếp tục mua hàng
+            </a>
+            <a href="/" class="btn-home">
+                🏠 Về trang chủ
+            </a>
+        </div>
+    </div>
+
+    <footer style="background: #2c3e50; color: white; padding: 40px 20px; margin-top: 60px; text-align: center;">
+        <p style="margin: 0; font-size: 1rem;">© 2024 Xưởng Sửa Xe. Địa chỉ: Xóm 4, xã Mai Đình, huyện Sóc Sơn, thành phố Hà Nội</p>
+    </footer>
+
+    <style>
+        @media print {
+            header, footer, .action-buttons, .btn-print, .floating-cart-icon, .info-boxes {
+                display: none !important;
+            }
+            .order-success-container {
+                padding: 20px;
+            }
+            .order-info-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</body>
+</html>

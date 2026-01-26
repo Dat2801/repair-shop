@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Sửa Xe Máy Tại Nhà Hà Nội - Motor Việt-Nhật | Giao Nhận Tận Nơi 24/7</title>
+    <meta name="description" content="Dịch vụ sửa chữa xe máy tại nhà Hà Nội uy tín, chuyên nghiệp. Giao nhận tận nơi 24/7, đội ngũ thợ giàu kinh nghiệm 10+ năm. Bảo dưỡng, sửa chữa, cứu hộ xe máy Honda, Yamaha, SYM. Giá rẻ, bảo hành chính hãng.">
+    <meta name="keywords" content="sửa xe máy tại nhà, sửa xe máy Hà Nội, sửa chữa xe máy giao nhận tận nơi, cứu hộ xe máy 24/7, bảo dưỡng xe máy, thay nhớt xe máy, sửa xe Honda, sửa xe Yamaha, thợ sửa xe giỏi Hà Nội">
+    <meta name="author" content="Motor Việt-Nhật">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://motorvietnhat.vn">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://motorvietnhat.vn">
+    <meta property="og:title" content="Sửa Xe Máy Tại Nhà Hà Nội - Motor Việt-Nhật | Giao Nhận 24/7">
+    <meta property="og:description" content="Dịch vụ sửa chữa xe máy tại nhà uy tín, chuyên nghiệp. Đội ngũ thợ 10+ năm kinh nghiệm, bảo hành chính hãng. Phục vụ 24/7 tại Hà Nội.">
+    <meta property="og:image" content="{{ url_for('static', filename='images/team1.jpg', _external=True) }}">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:site_name" content="Motor Việt-Nhật">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sửa Xe Máy Tại Nhà Hà Nội - Motor Việt-Nhật">
+    <meta name="twitter:description" content="Dịch vụ sửa chữa xe máy tại nhà uy tín, chuyên nghiệp. Giao nhận 24/7.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/team1.jpg', _external=True) }}">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="VN-HN">
+    <meta name="geo.placename" content="Hà Nội">
+    <meta name="geo.position" content="21.028511;105.804817">
+    <meta name="ICBM" content="21.028511, 105.804817">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Motor Việt-Nhật",
+      "image": "{{ url_for('static', filename='images/team1.jpg', _external=True) }}",
+      "description": "Dịch vụ sửa chữa xe máy tại nhà Hà Nội uy tín, chuyên nghiệp. Giao nhận tận nơi 24/7.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Xã Đàn, Đống Đa",
+        "addressLocality": "Hà Nội",
+        "addressCountry": "VN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 21.028511,
+        "longitude": 105.804817
+      },
+      "telephone": "+84123456789",
+      "priceRange": "$$",
+      "openingHours": "Mo-Su 00:00-24:00",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "500"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Hà Nội"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Dịch vụ sửa chữa xe máy",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Sửa chữa tổng quát xe máy"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Bảo dưỡng định kỳ"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Cứu hộ xe máy 24/7"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">
+</head>
+<body>
+    <!-- Floating Images Left & Right - Full Page Height -->
+    <div class="floating-image floating-left">
+        <img src="{{ url_for('static', filename='images/wave-alpha.jpg') }}" alt="Honda Wave Alpha">
+    </div>
+    <div class="floating-image floating-right">
+        <img src="{{ url_for('static', filename='images/exciter-155.jpg') }}" alt="Yamaha Exciter">
+    </div>
+
+    <!-- Floating Contact Icons -->
+    <div class="floating-contacts">
+        <a href="https://zalo.me/0123456789" target="_blank" class="contact-icon zalo" title="Chat Zalo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.546 20.2l3.18-.892A9.958 9.958 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm3.5 13.5h-7a.5.5 0 010-1h7a.5.5 0 010 1zm0-2.5h-7a.5.5 0 010-1h7a.5.5 0 010 1zm0-2.5h-7a.5.5 0 010-1h7a.5.5 0 010 1z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/suaxemotor" target="_blank" class="contact-icon facebook" title="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://m.me/suaxemotor" target="_blank" class="contact-icon messenger" title="Messenger">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.912 1.446 5.508 3.706 7.206V22l3.405-1.87c.908.252 1.87.387 2.889.387 5.523 0 10-4.145 10-9.274C22 6.145 17.523 2 12 2zm1.028 12.5l-2.573-2.745-5.022 2.745L10.972 9.5l2.634 2.745 4.961-2.745-5.539 5z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@suaxemotor" target="_blank" class="contact-icon tiktok" title="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z"/></svg>
+        </a>
+    </div>
+
+    <!-- Top Bar Buttons -->
+    <button class="dashboard-toggle" onclick="toggleDashboard()" title="Mở Bảng Điều Hành">
+        🔧 Quản Lý Sửa Chữa
+    </button>
+
+    <!-- Auth Buttons (Top Right) -->
+    <div class="top-auth-buttons">
+        {% if session.get('user_id') %}
+        <!-- Cart Icon -->
+        <a href="{{ url_for('shop.cart') }}" class="cart-icon-link">
+            <svg class="cart-icon-header" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="cart-count-badge" id="cartCountBadge">0</span>
+        </a>
+        
+        <div class="user-dropdown">
+            <button class="btn-top-account">
+                <span class="user-icon">👤</span>
+                <span class="user-name">{{ session.get('full_name', 'Tài khoản') }}</span>
+                <span class="dropdown-arrow">▼</span>
+            </button>
+            <div class="dropdown-menu">
+                <a href="{{ url_for('auth.profile') }}" class="dropdown-item">
+                    <span class="item-icon">👤</span>
+                    <span>Thông tin cá nhân</span>
+                </a>
+                <a href="{{ url_for('auth.booking_history') }}" class="dropdown-item">
+                    <span class="item-icon">📋</span>
+                    <span>Lịch sử đặt lịch</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="{{ url_for('auth.logout') }}" class="dropdown-item logout">
+                    <span class="item-icon">🚪</span>
+                    <span>Đăng xuất</span>
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <a href="{{ url_for('auth.login') }}" class="btn-top-login">🔑 Đăng Nhập</a>
+        <a href="{{ url_for('auth.register') }}" class="btn-top-register">📝 Đăng Ký</a>
+        {% endif %}
+    </div>
+
+    <!-- Dashboard Panel (Hidden by default) -->
+    <div class="dashboard-panel" id="dashboardPanel">
+        <div class="dashboard-header">
+            <h3>� Bảng Điều Hành Sửa Chữa</h3>
+            <button class="close-btn" onclick="toggleDashboard()">✕</button>
+        </div>
+        <div class="dashboard-content">
+            <div class="stat-card">
+                <div class="stat-icon">📞</div>
+                <div class="stat-info">
+                    <h4>Yêu Cầu Mới</h4>
+                    <p class="stat-number" id="contactCount">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔧</div>
+                <div class="stat-info">
+                    <h4>Dịch Vụ</h4>
+                    <p class="stat-number">{{ services|length }}</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-info">
+                    <h4>Đánh Giá</h4>
+                    <p class="stat-number">4.9/5</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <h4>Khách Hàng</h4>
+                    <p class="stat-number">500+</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="notification notification-{{ category }}">
+                    <span class="notification-message">{{ message }}</span>
+                    <button class="notification-close" onclick="this.parentElement.remove()">✕</button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Banner Hero Section -->
+    <div class="banner-hero" id="home">
+        <div class="banner-overlay"></div>
+        <div class="banner-content container">
+            <div class="logo-section">
+                <h1>MOTOR VIỆT-NHẬT</h1>
+            </div>
+            <p class="tagline">Chuyên Sửa Chữa, Bảo Dưỡng & Độ Xe Máy Chuyên Nghiệp</p>
+            <p class="subtitle">Honda • Yamaha • Suzuki • SYM • Piaggio</p>
+        </div>
+    </div>
+
+    <!-- Navigation Menu with Services Dropdown -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#home">🏠 Trang Chủ</a></li>
+                <li class="dropdown">
+                    <a href="#about" class="dropbtn">📖 Giới Thiệu ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#history">📜 Lịch Sử Hình Thành</a>
+                        <a href="#team">👥 Đội Ngũ Kỹ Thuật</a>
+                        <a href="#achievements">🏆 Thành Tựu</a>
+                        <a href="#partners">🤝 Đối Tác</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#services" class="dropbtn">🔧 Dịch Vụ ▼</a>
+                    <div class="dropdown-content">
+                        {% for s in services %}
+                        <a href="#service-{{ loop.index }}">
+                            <span class="service-name">{{ s.name }}</span>
+                            <span class="service-price">{{ s.price_note }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#parts" class="dropbtn">🛠️ Phụ Tùng ▼</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('shop.products') }}">🛒 Cửa Hàng Online</a>
+                        <a href="#parts-original">✅ Phụ Tùng Chính Hãng</a>
+                        <a href="#parts-genuine">🔧 Phụ Tùng Zin</a>
+                        <a href="#parts-battery">🔋 Ắc Quy - Bình Điện</a>
+                        <a href="#parts-tire">🛞 Lốp Xe - Vỏ Xe</a>
+                        <a href="#parts-oil">🛢️ Nhớt - Dầu Nhờn</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#rescue" class="dropbtn">🚨 Cứu Hộ ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#rescue-24h">⏰ Cứu Hộ 24/7</a>
+                        <a href="#rescue-home">🏠 Sửa Xe Tại Nhà</a>
+                        <a href="#rescue-road">🛣️ Cứu Hộ Đường Dài</a>
+                        <a href="#rescue-towing">🚛 Kéo Xe Toàn Quốc</a>
+                    </div>
+                </li>
+                <li><a href="#gallery">🖼️ Hình Ảnh</a></li>
+                <li class="dropdown">
+                    <a href="#contact" class="dropbtn">📝 Liên Hệ ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#contact-form">✉️ Gửi Tin Nhắn</a>
+                        <a href="#contact-phone">📞 Gọi Điện</a>
+                        <a href="#contact-map">🗺️ Bản Đồ Chi Nhánh</a>
+                        <a href="#contact-zalo">💬 Chat Zalo</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#account" class="dropbtn">👤 Tài Khoản ▼</a>
+                    <div class="dropdown-content">
+                        {% if session.get('user_id') %}
+                        <a href="{{ url_for('auth.profile') }}">👤 Thông Tin Cá Nhân</a>
+                        <a href="{{ url_for('auth.logout') }}">🚪 Đăng Xuất</a>
+                        {% else %}
+                        <a href="{{ url_for('auth.login') }}">🔑 Đăng Nhập</a>
+                        <a href="{{ url_for('auth.register') }}">📝 Đăng Ký</a>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <div class="container">
+            <div class="stat-box">
+                <div class="stat-icon">👨‍🔧</div>
+                <div class="stat-number">25+</div>
+                <div class="stat-label">Kỹ Thuật Viên</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">📅</div>
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Năm Kinh Nghiệm</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">🏪</div>
+                <div class="stat-number">3</div>
+                <div class="stat-label">Chi Nhánh HN</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">😊</div>
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Khách Hài Lòng</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Branch Locations -->
+    <div class="branch-section">
+        <div class="container">
+            <h2 class="section-title">📍 HỆ THỐNG CHI NHÁNH HÀ NỘI</h2>
+            <div class="branch-grid">
+                <div class="branch-card">
+                    <div class="branch-icon">🏪</div>
+                    <h3>Chi Nhánh Xã Đàn</h3>
+                    <p class="branch-address">📍 Đường Xã Đàn, Đống Đa, Hà Nội</p>
+                    <p class="branch-phone">📞 0934 277 247</p>
+                    <p class="branch-time">⏰ 7:00 - 19:00 (Cả tuần)</p>
+                </div>
+                <div class="branch-card">
+                    <div class="branch-icon">🏪</div>
+                    <h3>Chi Nhánh Hoàn Cầu</h3>
+                    <p class="branch-address">📍 Đường Hoàn Cầu, Hoàn Kiếm, Hà Nội</p>
+                    <p class="branch-phone">📞 0934 277 248</p>
+                    <p class="branch-time">⏰ 7:00 - 19:00 (Cả tuần)</p>
+                </div>
+                <div class="branch-card">
+                    <div class="branch-icon">🏪</div>
+                    <h3>Chi Nhánh Trung Kính</h3>
+                    <p class="branch-address">📍 Đường Trung Kính, Cầu Giấy, Hà Nội</p>
+                    <p class="branch-phone">📞 0934 277 249</p>
+                    <p class="branch-time">⏰ 7:00 - 19:00 (Cả tuần)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Contact Bar -->
+    <div class="quick-contact-bar">
+        <div class="container">
+            <div class="contact-item">
+                <span class="icon">🚨</span>
+                <span class="contact-text">Cứu Hộ Xe 24/7</span>
+            </div>
+            <div class="contact-item">
+                <span class="icon">⚡</span>
+                <span class="contact-text">Sửa Tại Nhà Nhanh</span>
+            </div>
+            <div class="contact-item">
+                <span class="icon">✅</span>
+                <span class="contact-text">Phụ Tùng Chính Hãng</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Gallery Section -->
+        <section class="gallery-section" id="gallery">
+            <h2>🏪 Cửa Hàng & Trang Thiết Bị</h2>
+            
+            <!-- Bike Slider -->
+            <div class="bike-slider">
+                <div class="slider-container">
+                    <div class="slide active">
+                        <img src="{{ url_for('static', filename='images/wave-alpha.jpg') }}" alt="Honda Wave Alpha">
+                        <div class="slide-caption">🏍️ Honda Wave Alpha</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/honda-sh.jpg') }}" alt="Honda SH">
+                        <div class="slide-caption">🛵 Honda SH</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/honda-sh-mode.jpg') }}" alt="Honda SH Mode">
+                        <div class="slide-caption">🛵 Honda SH Mode</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/honda-lead.jpg') }}" alt="Honda Lead">
+                        <div class="slide-caption">🛵 Honda Lead</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/honda-vision.jpg') }}" alt="Honda Vision">
+                        <div class="slide-caption">🛵 Honda Vision</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/honda-airblade.jpg') }}" alt="Honda Air Blade">
+                        <div class="slide-caption">🛵 Honda Air Blade</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/honda-dream.jpg') }}" alt="Honda Dream">
+                        <div class="slide-caption">🏍️ Honda Dream</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/future-125.jpg') }}" alt="Honda Future 125">
+                        <div class="slide-caption">🏍️ Honda Future 125</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/sirius.jpg') }}" alt="Yamaha Sirius">
+                        <div class="slide-caption">🏍️ Yamaha Sirius</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/yamaha-grande.jpg') }}" alt="Yamaha Grande">
+                        <div class="slide-caption">🛵 Yamaha Grande</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/exciter-155.jpg') }}" alt="Yamaha Exciter 155">
+                        <div class="slide-caption">🏍️ Yamaha Exciter 155</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/winner-x.jpg') }}" alt="Honda Winner X">
+                        <div class="slide-caption">🏍️ Honda Winner X</div>
+                    </div>
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename='images/vespa.jpg') }}" alt="Vespa">
+                        <div class="slide-caption">🛵 Vespa</div>
+                    </div>
+                </div>
+                <div class="slider-dots">
+                    <span class="dot active" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                    <span class="dot" onclick="currentSlide(5)"></span>
+                    <span class="dot" onclick="currentSlide(6)"></span>
+                    <span class="dot" onclick="currentSlide(7)"></span>
+                    <span class="dot" onclick="currentSlide(8)"></span>
+                    <span class="dot" onclick="currentSlide(9)"></span>
+                    <span class="dot" onclick="currentSlide(10)"></span>
+                    <span class="dot" onclick="currentSlide(11)"></span>
+                    <span class="dot" onclick="currentSlide(12)"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <h2 class="form-title">Đặt lịch giao nhận – sửa xe tại nhà</h2>
+            <form method="POST" action="/contact" class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Họ và tên <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="Nhập họ tên" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bike_brand">Hãng xe: <span class="required">*</span></label>
+                        <input type="text" id="bike_brand" name="bike_brand" placeholder="Nhập hãng xe!" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Dịch vụ <span class="required">*</span></label>
+                        <select id="service" name="service" required>
+                            <option value="">Sửa chữa</option>
+                            <option value="sua_chua">Sửa chữa tổng quát</option>
+                            <option value="bao_duong">Bảo dưỡng định kỳ</option>
+                            <option value="thay_dau">Thay nhớt, dầu máy</option>
+                            <option value="sua_dong_co">Sửa động cơ</option>
+                            <option value="thay_lop">Thay lốp, vỏ xe</option>
+                            <option value="do_den">Độ đèn LED</option>
+                            <option value="cuu_ho">Cứu hộ xe máy</option>
+                            <option value="khac">Khác</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pickup_address">Địa chỉ lấy xe <span class="required">*</span></label>
+                        <input type="text" id="pickup_address" name="pickup_address" placeholder="Nhập địa chỉ lấy xe tại nhà" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup_date">Ngày lấy xe <span class="required">*</span></label>
+                        <input type="date" id="pickup_date" name="pickup_date" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="condition">Tình trạng xe</label>
+                    <textarea id="condition" name="condition" rows="5" placeholder="Ví dụ: Xe không nổ, xe chết máy giữa đường..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit-orange">Gửi yêu cầu ngay</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MOTOR VIỆT-NHẬT</h3>
+                    <p>Chuyên sửa chữa, bảo dưỡng & độ xe máy chuyên nghiệp</p>
+                    <p>Cam kết chất lượng - Giá cả hợp lý</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Liên hệ</h4>
+                    <p>📍 Địa chỉ: Hà Nội</p>
+                    <p> Giờ mở cửa: 7:00 - 19:00</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Dịch vụ</h4>
+                    <p>✅ Sửa chữa động cơ xe máy</p>
+                    <p>✅ Bảo dưỡng định kỳ xe</p>
+                    <p>✅ Độ đèn LED, độ đồ chơi</p>
+                    <p>✅ Thay nhớdt, lốp, ắc quy</p>
+                    <p>✅ Cứu hộ xe máy 24/7</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Motor Việt-Nhật. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Hotline Button -->
+    <a href="tel:0123456789" class="floating-hotline-btn" title="Gọi ngay: 012-345-6789">
+        <span class="hotline-icon-pulse">📞</span>
+    </a>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Auto-hide notifications after 5 seconds
+        setTimeout(() => {
+            const notifications = document.querySelectorAll('.notification');
+            notifications.forEach(notif => {
+                notif.style.animation = 'slideOut 0.5s ease-out';
+                setTimeout(() => notif.remove(), 500);
+            });
+        }, 5000);
+
+        // Update cart count badge
+        {% if session.get('user_id') %}
+        const cartCountBadge = document.getElementById('cartCountBadge');
+        if (cartCountBadge) {
+            const cartCount = {{ cart_count if cart_count else 0 }};
+            if (cartCount > 0) {
+                cartCountBadge.textContent = cartCount;
+                cartCountBadge.style.display = 'flex';
+            } else {
+                cartCountBadge.style.display = 'none';
+            }
+        }
+        {% endif %}
+
+        // Toggle Dashboard
+        function toggleDashboard() {
+            const panel = document.getElementById('dashboardPanel');
+            const toggleBtn = document.querySelector('.dashboard-toggle');
+            
+            panel.classList.toggle('active');
+            
+            // Ẩn nút khi mở panel, hiện nút khi đóng panel
+            if (panel.classList.contains('active')) {
+                toggleBtn.style.opacity = '0';
+                toggleBtn.style.visibility = 'hidden';
+                toggleBtn.style.transform = 'translateX(-20px)';
+            } else {
+                toggleBtn.style.opacity = '1';
+                toggleBtn.style.visibility = 'visible';
+                toggleBtn.style.transform = 'translateX(0)';
+            }
+        }
+
+        // Load contact count
+        function updateContactCount() {
+            fetch('/api/contacts/count')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('contactCount').textContent = data.count;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('contactCount').textContent = '?';
+                });
+        }
+        
+        updateContactCount();
+        // Update every 30 seconds
+        setInterval(updateContactCount, 30000);
+
+        // Show notification on form submit
+        const form = document.querySelector('.contact-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const submitBtn = this.querySelector('.btn-submit');
+                submitBtn.textContent = '⏳ Đang gửi...';
+                submitBtn.disabled = true;
+            });
+        }
+
+        // Bike Slider
+        let slideIndex = 0;
+        
+        function showSlides() {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            
+            slides[slideIndex - 1].classList.add('active');
+            dots[slideIndex - 1].classList.add('active');
+            
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+        
+        function currentSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slideIndex = n + 1;
+            slides[n].classList.add('active');
+            dots[n].classList.add('active');
+        }
+        
+        // Start slider
+        setTimeout(showSlides, 3000);
+    </script>
+</body>
+</html>

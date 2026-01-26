@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Cá Nhân - Motor Việt-Nhật</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .profile-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .profile-info h2 {
+            margin: 0 0 0.3rem 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .profile-info p {
+            margin: 0.2rem 0;
+            opacity: 0.95;
+            font-size: 0.9rem;
+        }
+        
+        .profile-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .profile-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-section h3 {
+            color: #2d3748;
+            margin: 0 0 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .info-item {
+            padding: 0.9rem;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .info-item label {
+            display: block;
+            color: #718096;
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        
+        .info-item .value {
+            color: #2d3748;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .booking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .booking-table th,
+        .booking-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .booking-table th {
+            background: #f7fafc;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .booking-table td {
+            color: #2d3748;
+        }
+        
+        .status-badge {
+            padding: 0.3rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-confirmed { background: #dbeafe; color: #1e40af; }
+        .status-in_progress { background: #cffafe; color: #155e75; }
+        .status-completed { background: #d1fae5; color: #065f46; }
+        .status-cancelled { background: #fee2e2; color: #991b1b; }
+        
+        .btn-group {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .btn-edit, .btn-logout, .btn-back {
+            padding: 0.65rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+        
+        .btn-edit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-logout {
+            background: #e2e8f0;
+            color: #4a5568;
+            margin-left: auto;
+        }
+        
+        .btn-logout:hover {
+            background: #cbd5e0;
+        }
+        
+        .btn-back {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+            text-align: center;
+            display: block;
+            margin: 1.5rem auto 0;
+            width: fit-content;
+        }
+        
+        .btn-back:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .alert {
+            padding: 0.9rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+        
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .empty-state {
+            text-align: center;
+            color: #718096;
+            padding: 2.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-mini {
+            background: #f7fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+            text-align: center;
+        }
+        
+        .stat-mini .stat-number {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-mini .stat-text {
+            display: block;
+            font-size: 0.7rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .booking-table tbody tr:hover {
+            background: #f7fafc;
+        }
+        
+        .detail-text {
+            font-size: 0.75rem;
+            color: #718096;
+            display: block;
+            margin-top: 0.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .booking-table {
+                font-size: 0.8rem;
+            }
+            
+            .booking-table th,
+            .booking-table td {
+                padding: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                👤
+            </div>
+            <div class="profile-info">
+                <h2>{{ user.full_name }}</h2>
+                <p>@{{ user.username }} | {{ user.email }}</p>
+                <p>Vai trò: {% if user.role == 'admin' %}Quản trị viên{% else %}Khách hàng{% endif %}</p>
+            </div>
+        </div>
+        
+        <div class="profile-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" style="padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="profile-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 style="margin: 0;">Thông Tin Cá Nhân</h3>
+                    <a href="{{ url_for('auth.edit_profile') }}" class="btn-edit">✏️ Chỉnh Sửa Thông Tin</a>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Họ và tên</label>
+                        <div class="value">{{ user.full_name }}</div>
+                    </div>
+                    <div class="info-item">
+                        <label>Tên đăng nhập</label>
+                        <div class="value">{{ user.username }}</div>
+                    </div>
+                    <div class="info-item">
+                        <label>Email</label>
+                        <div class="value">{{ user.email }}</div>
+                    </div>
+                    <div class="info-item">
+                        <label>Số điện thoại</label>
+                        <div class="value">{{ user.phone if user.phone else 'Chưa cập nhật' }}</div>
+                    </div>
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <label>Địa chỉ</label>
+                        <div class="value">{{ user.address if user.address else 'Chưa cập nhật' }}</div>
+                    </div>
+                    <div class="info-item">
+                        <label>Vai trò</label>
+                        <div class="value">
+                            {% if user.role == 'admin' %}
+                            <span style="color: #dc143c; font-weight: 600;">🛡️ Quản trị viên</span>
+                            {% else %}
+                            <span style="color: #667eea; font-weight: 600;">👤 Khách hàng</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <label>Ngày tạo tài khoản</label>
+                        <div class="value">{{ user.created_at.strftime('%d/%m/%Y %H:%M') if user.created_at else 'N/A' }}</div>
+                    </div>
+                    <div class="info-item">
+                        <label>Đăng nhập lần cuối</label>
+                        <div class="value">{{ user.last_login.strftime('%d/%m/%Y %H:%M') if user.last_login else 'Chưa có thông tin' }}</div>
+                    </div>
+                    <div class="info-item">
+                        <label>Trạng thái tài khoản</label>
+                        <div class="value">
+                            {% if user.is_active %}
+                            <span style="color: #10b981; font-weight: 600;">✅ Đang hoạt động</span>
+                            {% else %}
+                            <span style="color: #e53e3e; font-weight: 600;">❌ Bị khóa</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 style="margin: 0;">🛍️ Lịch Sử Mua Hàng</h3>
+                    <a href="{{ url_for('shop.order_history') }}" class="btn-edit" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">📋 Xem tất cả đơn hàng</a>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <h3>Lịch Sử Đặt Lịch Sửa Xe</h3>
+                {% if bookings %}
+                <div class="stats-row">
+                    <div class="stat-mini">
+                        <span class="stat-number">{{ bookings|length }}</span>
+                        <span class="stat-text">Tổng đơn</span>
+                    </div>
+                    <div class="stat-mini" style="border-left-color: #f59e0b;">
+                        <span class="stat-number" style="color: #f59e0b;">{{ bookings|selectattr('status', 'equalto', 'pending')|list|length }}</span>
+                        <span class="stat-text">Chờ xác nhận</span>
+                    </div>
+                    <div class="stat-mini" style="border-left-color: #10b981;">
+                        <span class="stat-number" style="color: #10b981;">{{ bookings|selectattr('status', 'equalto', 'completed')|list|length }}</span>
+                        <span class="stat-text">Hoàn thành</span>
+                    </div>
+                </div>
+                
+                <table class="booking-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ngày đặt</th>
+                            <th>Xe</th>
+                            <th>Dịch vụ</th>
+                            <th>Ngày lấy</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td><strong>{{ booking.id }}</strong></td>
+                            <td>
+                                <div>{{ booking.created_at.strftime('%d/%m/%Y') }}</div>
+                                <span class="detail-text">{{ booking.created_at.strftime('%H:%M') }}</span>
+                            </td>
+                            <td><strong>{{ booking.bike_brand }}</strong></td>
+                            <td style="font-size: 0.85rem;">
+                                {% if booking.service == 'sua_chua' %}Sửa chữa
+                                {% elif booking.service == 'bao_duong' %}Bảo dưỡng
+                                {% elif booking.service == 'thay_dau' %}Thay dầu
+                                {% elif booking.service == 'sua_dong_co' %}Sửa động cơ
+                                {% elif booking.service == 'thay_lop' %}Thay lốp
+                                {% elif booking.service == 'do_den' %}Độ đèn
+                                {% elif booking.service == 'cuu_ho' %}Cứu hộ
+                                {% else %}Khác{% endif %}
+                            </td>
+                            <td>{{ booking.pickup_date.strftime('%d/%m/%Y') if booking.pickup_date else 'N/A' }}</td>
+                            <td>
+                                <span class="status-badge status-{{ booking.status }}">
+                                    {% if booking.status == 'pending' %}⏳ Chờ
+                                    {% elif booking.status == 'confirmed' %}✅ OK
+                                    {% elif booking.status == 'in_progress' %}🔧 Đang sửa
+                                    {% elif booking.status == 'completed' %}✔️ Xong
+                                    {% else %}❌ Hủy{% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="empty-state">📋 Chưa có lịch đặt nào. <a href="{{ url_for('home.index') }}#contact" style="color: #667eea; text-decoration: underline;">Đặt lịch ngay</a></p>
+                {% endif %}
+            </div>
+            
+            <a href="{{ url_for('home.index') }}" class="btn-back">← Quay về trang chủ</a>
+        </div>
+    </div>
+</body>
+</html>

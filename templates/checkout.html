@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán - Motor Việt-Nhật</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">
+</head>
+<body>
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <a href="{{ url_for('home.index') }}" style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700;">
+                🏍️ MOTOR VIỆT-NHẬT
+            </a>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <a href="{{ url_for('shop.products') }}" style="color: white; text-decoration: none; font-weight: 600;">🛍️ Cửa hàng</a>
+                <a href="{{ url_for('shop.cart') }}" style="color: white; text-decoration: none; font-weight: 600;">🛒 Giỏ hàng</a>
+                {% if session.get('user_id') %}
+                <a href="{{ url_for('shop.order_history') }}" style="color: white; text-decoration: none; font-weight: 600;">📋 Đơn hàng</a>
+                <a href="{{ url_for('auth.profile') }}" style="color: white; text-decoration: none; font-weight: 600;">👤 {{ session.get('full_name', 'Tài khoản') }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+<div class="checkout-container">
+    <h1 class="checkout-title">💳 Thanh Toán Đơn Hàng</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="background: {% if category == 'success' %}#d4edda{% else %}#f8d7da{% endif %}; color: {% if category == 'success' %}#155724{% else %}#721c24{% endif %}; padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; font-weight: 600; border: 2px solid {% if category == 'success' %}#c3e6cb{% else %}#f5c6cb{% endif %};">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <div class="checkout-grid">
+        <!-- Thông tin giao hàng -->
+        <div class="checkout-form-section">
+            <h2>📦 Thông Tin Giao Hàng</h2>
+            <form method="POST" action="{{ url_for('shop.checkout') }}" class="checkout-form">
+                <div class="form-group">
+                    <label for="shipping_name">👤 Họ và tên người nhận *</label>
+                    <input type="text" id="shipping_name" name="shipping_name" 
+                           value="{{ user_info.full_name if user_info else '' }}" 
+                           required minlength="3" placeholder="Nguyễn Văn A">
+                </div>
+                
+                <div class="form-group">
+                    <label for="shipping_phone">📱 Số điện thoại *</label>
+                    <input type="tel" id="shipping_phone" name="shipping_phone" 
+                           value="{{ user_info.phone if user_info else '' }}" 
+                           required pattern="[0-9]{10,11}" placeholder="0912345678">
+                </div>
+                
+                <div class="form-group">
+                    <label for="shipping_address">🏠 Địa chỉ giao hàng *</label>
+                    <textarea id="shipping_address" name="shipping_address" rows="3" required placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố">{{ user_info.address if user_info else '' }}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">📝 Ghi chú đơn hàng (không bắt buộc)</label>
+                    <textarea id="notes" name="notes" rows="2" placeholder="Ví dụ: Giao giờ hành chính, gọi trước 15 phút..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-place-order">✅ XÁC NHẬN ĐẶT HÀNG</button>
+            </form>
+        </div>
+        
+        <!-- Tóm tắt đơn hàng -->
+        <div class="checkout-summary-section">
+            <h2>📋 Đơn Hàng Của Bạn</h2>
+            <div class="order-items">
+                {% for item in cart_items %}
+                <div class="order-item">
+                    <img src="{{ item.image_url }}" alt="{{ item.name }}" class="order-item-image">
+                    <div class="order-item-info">
+                        <p class="order-item-name">{{ item.name }}</p>
+                        <p class="order-item-qty">Số lượng: {{ item.quantity }}</p>
+                    </div>
+                    <div class="order-item-price">
+                        {{ "{:,.0f}".format(item.price * item.quantity) }}đ
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Tạm tính:</span>
+                    <span>{{ "{:,.0f}".format(total) }}đ</span>
+                </div>
+                <div class="summary-row">
+                    <span>Phí vận chuyển:</span>
+                    <span class="free-shipping">Miễn phí</span>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-row total">
+                    <span>Tổng cộng:</span>
+                    <span class="total-price">{{ "{:,.0f}".format(total) }}đ</span>
+                </div>
+            </div>
+            
+            <div class="payment-note">
+                <p>💰 <strong>Thanh toán khi nhận hàng (COD)</strong></p>
+                <p class="note-text">Vui lòng kiểm tra kỹ sản phẩm trước khi thanh toán.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử Đặt Lịch - Motor Việt-Nhật</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .history-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .history-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .history-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .history-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            text-align: center;
+        }
+        
+        .stat-box .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-box .stat-label {
+            font-size: 0.85rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .booking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .booking-table th,
+        .booking-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .booking-table th {
+            background: #f7fafc;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .booking-table td {
+            color: #2d3748;
+        }
+        
+        .booking-table tbody tr:hover {
+            background: #f7fafc;
+        }
+        
+        .status-badge {
+            padding: 0.4rem 0.9rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-confirmed { background: #dbeafe; color: #1e40af; }
+        .status-in_progress { background: #cffafe; color: #155e75; }
+        .status-completed { background: #d1fae5; color: #065f46; }
+        .status-cancelled { background: #fee2e2; color: #991b1b; }
+        
+        .btn-back {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-back:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #718096;
+        }
+        
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        .empty-state h3 {
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-state p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-create {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-create:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .detail-text {
+            font-size: 0.85rem;
+            color: #718096;
+            display: block;
+            margin-top: 0.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .history-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .booking-table {
+                font-size: 0.8rem;
+            }
+            
+            .booking-table th,
+            .booking-table td {
+                padding: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="history-container">
+        <div class="history-header">
+            <h2>
+                <span>📋</span>
+                <span>Lịch Sử Đặt Lịch Sửa Xe</span>
+            </h2>
+            <div style="text-align: right;">
+                <div style="font-size: 0.9rem; opacity: 0.95;">{{ user.full_name }}</div>
+                <div style="font-size: 0.85rem; opacity: 0.8;">{{ user.email }}</div>
+            </div>
+        </div>
+        
+        <div class="history-content">
+            {% if bookings %}
+            <div class="stats-bar">
+                <div class="stat-box">
+                    <div class="stat-value">{{ bookings|length }}</div>
+                    <div class="stat-label">Tổng đơn</div>
+                </div>
+                <div class="stat-box" style="border-left-color: #f59e0b;">
+                    <div class="stat-value" style="color: #f59e0b;">{{ bookings|selectattr('status', 'equalto', 'pending')|list|length }}</div>
+                    <div class="stat-label">Chờ xác nhận</div>
+                </div>
+                <div class="stat-box" style="border-left-color: #10b981;">
+                    <div class="stat-value" style="color: #10b981;">{{ bookings|selectattr('status', 'equalto', 'completed')|list|length }}</div>
+                    <div class="stat-label">Hoàn thành</div>
+                </div>
+            </div>
+            
+            <table class="booking-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Ngày đặt</th>
+                        <th>Thông tin xe</th>
+                        <th>Dịch vụ</th>
+                        <th>Địa chỉ lấy xe</th>
+                        <th>Ngày lấy</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td><strong>{{ booking.id }}</strong></td>
+                        <td>
+                            <div>{{ booking.created_at.strftime('%d/%m/%Y') }}</div>
+                            <span class="detail-text">{{ booking.created_at.strftime('%H:%M') }}</span>
+                        </td>
+                        <td>
+                            <div><strong>{{ booking.bike_brand }}</strong></div>
+                            <span class="detail-text">{{ booking.phone }}</span>
+                        </td>
+                        <td>
+                            {% if booking.service == 'sua_chua' %}Sửa chữa
+                            {% elif booking.service == 'bao_duong' %}Bảo dưỡng
+                            {% elif booking.service == 'thay_dau' %}Thay dầu
+                            {% elif booking.service == 'sua_dong_co' %}Sửa động cơ
+                            {% elif booking.service == 'thay_lop' %}Thay lốp
+                            {% elif booking.service == 'do_den' %}Độ đèn LED
+                            {% elif booking.service == 'cuu_ho' %}Cứu hộ
+                            {% else %}Khác{% endif %}
+                        </td>
+                        <td style="max-width: 200px;">
+                            <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="{{ booking.pickup_address }}">
+                                {{ booking.pickup_address }}
+                            </div>
+                        </td>
+                        <td>{{ booking.pickup_date.strftime('%d/%m/%Y') if booking.pickup_date else 'N/A' }}</td>
+                        <td>
+                            <span class="status-badge status-{{ booking.status }}">
+                                {% if booking.status == 'pending' %}⏳ Chờ xác nhận
+                                {% elif booking.status == 'confirmed' %}✅ Đã xác nhận
+                                {% elif booking.status == 'in_progress' %}🔧 Đang sửa
+                                {% elif booking.status == 'completed' %}✔️ Hoàn thành
+                                {% else %}❌ Đã hủy{% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty-state">
+                <div class="icon">📋</div>
+                <h3>Chưa có lịch đặt nào</h3>
+                <p>Bạn chưa đặt lịch sửa xe nào. Hãy đặt lịch ngay để được phục vụ tốt nhất!</p>
+                <a href="{{ url_for('home.index') }}#contact" class="btn-create">📝 Đặt Lịch Ngay</a>
+            </div>
+            {% endif %}
+            
+            <div style="text-align: center;">
+                <a href="{{ url_for('auth.profile') }}" class="btn-back">👤 Về Trang Cá Nhân</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

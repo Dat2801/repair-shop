@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa Hàng Phụ Tùng - Motor Việt-Nhật</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">    <link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}"></head>
+<body>
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <a href="{{ url_for('home.index') }}" style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700;">
+                🏍️ MOTOR VIỆT-NHẬT
+            </a>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <a href="{{ url_for('shop.cart') }}" style="color: white; text-decoration: none; font-weight: 600;">🛒 Giỏ hàng ({{ cart_count }})</a>
+                {% if session.get('user_id') %}                <a href="{{ url_for('shop.order_history') }}" style="color: white; text-decoration: none; font-weight: 600;">📋 Đơn hàng</a>                <a href="{{ url_for('auth.profile') }}" style="color: white; text-decoration: none; font-weight: 600;">👤 {{ session.get('full_name', 'Tài khoản') }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+<div class="shop-container">
+    <!-- Header -->
+    <div class="shop-header">
+        <h1>🛒 Cửa Hàng Phụ Tùng Xe Máy</h1>
+        <a href="{{ url_for('shop.cart') }}" class="cart-link">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-text">Giỏ hàng</span>
+            {% if cart_count > 0 %}
+            <span class="cart-badge">{{ cart_count }}</span>
+            {% endif %}
+        </a>
+    </div>
+    
+    <!-- Search and Filter -->
+    <div class="filter-section">
+        <form method="GET" action="{{ url_for('shop.products') }}" class="filter-form">
+            <div class="filter-group">
+                <label for="search">Tìm kiếm</label>
+                <input type="text" id="search" name="search" placeholder="🔍 Tên sản phẩm..." value="{{ search or '' }}">
+            </div>
+            
+            <div class="filter-group">
+                <label for="category">Danh mục</label>
+                <select id="category" name="category">
+                    <option value="">Tất cả danh mục</option>
+                    {% for cat in categories %}
+                    <option value="{{ cat }}" {% if selected_category == cat %}selected{% endif %}>
+                        {{ cat|replace('_', ' ')|title }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="min_price">Giá từ</label>
+                <input type="number" id="min_price" name="min_price" placeholder="0đ" value="{{ min_price or '' }}">
+            </div>
+            
+            <div class="filter-group">
+                <label for="max_price">Giá đến</label>
+                <input type="number" id="max_price" name="max_price" placeholder="1,000,000đ" value="{{ max_price or '' }}">
+            </div>
+            
+            <div class="filter-group">
+                <label for="sort">Sắp xếp</label>
+                <select id="sort" name="sort">
+                    <option value="name_asc" {% if sort == 'name_asc' %}selected{% endif %}>Tên A-Z</option>
+                    <option value="name_desc" {% if sort == 'name_desc' %}selected{% endif %}>Tên Z-A</option>
+                    <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>Giá thấp → cao</option>
+                    <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>Giá cao → thấp</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn-filter">Lọc</button>
+            <a href="{{ url_for('shop.products') }}" class="btn-reset">Xóa lọc</a>
+        </form>
+    </div>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="background: {% if category == 'success' %}#10ac84{% else %}#ee5a6f{% endif %}; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: 600;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <!-- Products Grid -->
+    {% if products %}
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <div class="product-image">
+                <img src="{{ product.image_url }}" alt="{{ product.name }}" onerror="this.src='https://via.placeholder.com/400x400/667eea/ffffff?text=Phụ+Tùng'">
+                {% if product.stock == 0 %}
+                <span class="stock-badge out">Hết hàng</span>
+                {% elif product.stock < 5 %}
+                <span class="stock-badge low">Còn {{ product.stock }} cái</span>
+                {% endif %}
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-desc">{{ product.description[:100] }}{% if product.description|length > 100 %}...{% endif %}</p>
+                <div class="product-footer">
+                    <span class="product-price">{{ "{:,.0f}".format(product.price) }}đ</span>
+                    <div class="product-actions">
+                        <a href="{{ url_for('shop.product_detail', product_id=product.id) }}" class="btn-view">👁️ Xem</a>
+                        {% if product.stock > 0 %}
+                        <form method="POST" action="{{ url_for('shop.add_to_cart', product_id=product.id) }}" style="display: inline; flex: 1;">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="btn-add-cart">🛒 Thêm</button>
+                        </form>
+                        {% else %}
+                        <button class="btn-add-cart disabled" disabled>❌ Hết hàng</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if total_pages > 1 %}
+    <div class="pagination">
+        <div class="pagination-info">
+            Hiển thị trang {{ page }} / {{ total_pages }} ({{ total_products }} sản phẩm)
+        </div>
+        <div class="pagination-buttons">
+            {% if page > 1 %}
+            <a href="{{ url_for('shop.products', page=page-1, search=search, category=selected_category, min_price=min_price, max_price=max_price, sort=sort) }}" class="page-btn">
+                ← Trang trước
+            </a>
+            {% endif %}
+            
+            {% for p in range(1, total_pages + 1) %}
+                {% if p == page %}
+                <span class="page-btn active">{{ p }}</span>
+                {% elif p == 1 or p == total_pages or (p >= page - 2 and p <= page + 2) %}
+                <a href="{{ url_for('shop.products', page=p, search=search, category=selected_category, min_price=min_price, max_price=max_price, sort=sort) }}" class="page-btn">{{ p }}</a>
+                {% elif p == page - 3 or p == page + 3 %}
+                <span class="page-btn dots">...</span>
+                {% endif %}
+            {% endfor %}
+            
+            {% if page < total_pages %}
+            <a href="{{ url_for('shop.products', page=page+1, search=search, category=selected_category, min_price=min_price, max_price=max_price, sort=sort) }}" class="page-btn">
+                Trang sau →
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <div class="no-products">
+        <p>😔 Không tìm thấy sản phẩm nào phù hợp!</p>
+        <a href="{{ url_for('shop.products') }}" class="btn-back">Quay lại trang chủ shop</a>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
