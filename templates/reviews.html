@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đánh Giá Khách Hàng - Xe Máy Hòa Bình</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">
+    <style>
+        .reviews-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .reviews-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .reviews-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: -50px auto 60px;
+            padding: 0 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        .review-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .review-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        .review-author h3 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        .review-rating {
+            color: #fdcb6e;
+            font-size: 1.5rem;
+        }
+        .review-meta {
+            display: flex;
+            gap: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        .review-text {
+            color: #2c3e50;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin: 20px 0;
+        }
+        .review-service {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="reviews-hero">
+        <h1>⭐ Đánh Giá Khách Hàng</h1>
+        <p style="font-size: 1.3rem; opacity: 0.95;">Trải nghiệm thực tế từ hàng trăm khách hàng đã sử dụng dịch vụ</p>
+    </div>
+
+    <div class="reviews-stats">
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.total_reviews }}</div>
+            <div class="stat-label">Đánh giá</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ '%.1f'|format(stats.avg_rating) }}</div>
+            <div class="stat-label">Điểm trung bình</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.five_star }}</div>
+            <div class="stat-label">Đánh giá 5⭐</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Hài lòng</div>
+        </div>
+    </div>
+
+    <div class="reviews-container">
+        {% for review in all_reviews %}
+        <div class="review-card">
+            <div class="review-header">
+                <img src="{{ review.customer_avatar }}" alt="{{ review.customer_name }}" class="review-avatar">
+                <div class="review-author">
+                    <h3>{{ review.customer_name }}</h3>
+                    <div class="review-rating">
+                        {% for i in range(review.rating) %}⭐{% endfor %}
+                    </div>
+                    <div class="review-meta">
+                        <span>📍 {{ review.location }}</span>
+                        <span>📅 {{ review.created_at.strftime('%d/%m/%Y') }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-text">
+                "{{ review.review_text }}"
+            </div>
+            <span class="review-service">{{ review.service_type }}</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer style="background: #2c3e50; color: white; padding: 40px 20px; text-align: center; margin-top: 80px;">
+        <p style="margin: 0; font-size: 1rem;">© 2024 Xưởng Sửa Xe. Địa chỉ: Xóm 4, xã Mai Đình, huyện Sóc Sơn, thành phố Hà Nội</p>
+        <p style="margin: 10px 0 0 0;"><a href="/" style="color: white; text-decoration: none;">← Về trang chủ</a></p>
+    </footer>
+</body>
+</html>

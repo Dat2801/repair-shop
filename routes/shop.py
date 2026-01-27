@@ -5,6 +5,32 @@ from routes.auth import is_logged_in
 
 shop_bp = Blueprint('shop', __name__, url_prefix='/shop')
 
+# Routes cho các danh mục phụ tùng
+@shop_bp.route('/phu-tung-chinh-hang')
+def genuine_parts():
+    """Phụ tùng chính hãng - Honda, Yamaha, SYM, Piaggio"""
+    return redirect(url_for('shop.products', category='phu_tung_chinh_hang'))
+
+@shop_bp.route('/phu-tung-zin')
+def zin_parts():
+    """Phụ tùng zin - Đồ zin theo xe"""
+    return redirect(url_for('shop.products', category='phu_tung_zin'))
+
+@shop_bp.route('/ac-quy')
+def battery():
+    """Ắc quy - Bình điện"""
+    return redirect(url_for('shop.products', category='ac_quy'))
+
+@shop_bp.route('/lop-xe')
+def tires():
+    """Lốp xe - Vỏ xe các loại"""
+    return redirect(url_for('shop.products', category='lop_xe'))
+
+@shop_bp.route('/nhot')
+def oil():
+    """Nhớt - Dầu nhờn các loại"""
+    return redirect(url_for('shop.products', category='dau_nhot'))
+
 @shop_bp.route('/')
 @shop_bp.route('/products')
 def products():

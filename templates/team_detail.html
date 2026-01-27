@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ member.name }} - Xe Máy Hòa Bình</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">
+    <style>
+        .member-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 20px;
+        }
+        .member-detail-container {
+            max-width: 1200px;
+            margin: -80px auto 60px;
+            padding: 0 20px;
+        }
+        .member-card {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 0;
+        }
+        .member-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .member-info {
+            padding: 50px;
+        }
+        .member-name {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+        .member-position {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .member-experience {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            color: #856404;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        .member-bio {
+            color: #7f8c8d;
+            line-height: 1.9;
+            font-size: 1.1rem;
+            margin: 25px 0;
+        }
+        .member-specialization {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        .member-specialization h3 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .member-specialization p {
+            color: #667eea;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .certifications {
+            margin-top: 30px;
+        }
+        .certifications h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .cert-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .cert-badge {
+            background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .contact-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        .contact-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 12px 0;
+            font-size: 1.1rem;
+        }
+        @media (max-width: 992px) {
+            .member-card {
+                grid-template-columns: 1fr;
+            }
+            .member-image {
+                height: 400px;
+            }
+            .member-info {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="member-hero"></div>
+
+    <div class="member-detail-container">
+        <div class="member-card">
+            <img src="{{ member.avatar_url or 'https://ui-avatars.com/api/?name=' + member.name + '&background=667eea&color=fff&size=500' }}" alt="{{ member.name }}" class="member-image" onerror="this.src='https://ui-avatars.com/api/?name={{ member.name }}&background=667eea&color=fff&size=500'">
+            
+            <div class="member-info">
+                <h1 class="member-name">{{ member.name }}</h1>
+                <div class="member-position">{{ member.position }}</div>
+                <span class="member-experience">⭐ {{ member.experience_years }} năm kinh nghiệm</span>
+                
+                {% if member.specialty %}
+                <div class="member-specialization">
+                    <h3>🎯 Chuyên môn</h3>
+                    <p>{{ member.specialty }}</p>
+                </div>
+                {% endif %}
+                
+                {% if member.bio %}
+                <div class="member-bio">
+                    {{ member.bio }}
+                </div>
+                {% endif %}
+                
+                {% if member.achievements %}
+                <div class="certifications">
+                    <h3>🏅 Chứng chỉ & Thành tích</h3>
+                    <div class="cert-list">
+                        {% for cert in member.achievements.split(',') %}
+                        <span class="cert-badge">✓ {{ cert.strip() }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if member.phone or member.email %}
+                <div class="contact-info">
+                    <h3>📞 Thông tin liên hệ</h3>
+                    {% if member.phone %}
+                    <div class="contact-item">
+                        <span>📱</span>
+                        <span>{{ member.phone }}</span>
+                    </div>
+                    {% endif %}
+                    {% if member.email %}
+                    <div class="contact-item">
+                        <span>✉️</span>
+                        <span>{{ member.email }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <div style="margin-top: 40px; display: flex; gap: 20px;">
+                    <a href="{{ url_for('team.team_list') }}" style="flex: 1; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; text-align: center; border-radius: 12px; font-weight: 700; transition: all 0.3s ease;">
+                        ← Về danh sách
+                    </a>
+                    <a href="/" style="flex: 1; padding: 15px; background: white; color: #667eea; text-decoration: none; text-align: center; border-radius: 12px; font-weight: 700; border: 2px solid #667eea; transition: all 0.3s ease;">
+                        🏠 Trang chủ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: #2c3e50; color: white; padding: 40px 20px; text-align: center; margin-top: 80px;">
+        <p style="margin: 0; font-size: 1rem;">© 2024 Xưởng Sửa Xe. Địa chỉ: Xóm 4, xã Mai Đình, huyện Sóc Sơn, thành phố Hà Nội</p>
+    </footer>
+</body>
+</html>

@@ -530,8 +530,8 @@ body {
 .banner-hero {
     position: relative;
     background-image: 
-        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),
-        url('/static/images/team1.jpg');
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('/static/images/hero-banner.png');
     background-size: cover;
     background-position: center;
     color: white;
@@ -978,14 +978,17 @@ body {
 
 .branch-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     margin-top: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .branch-card {
     background: white;
-    padding: 2rem;
+    padding: 1.8rem;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -1502,5 +1505,42 @@ footer {
         right: 10px;
         padding: 10px 15px;
         font-size: 0.9rem;
+    }
+}
+
+/* Workshop Gallery Styles */
+.gallery-item {
+    cursor: pointer;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3) !important;
+}
+
+.gallery-item img {
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-overlay {
+    transition: padding 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    padding-bottom: 15px !important;
+}
+
+@media (max-width: 768px) {
+    .workshop-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+        gap: 15px !important;
+    }
+    
+    .gallery-item img {
+        height: 200px !important;
     }
 }

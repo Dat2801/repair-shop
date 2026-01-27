@@ -4,6 +4,7 @@ from routes.contact import contact_bp
 from routes.admin import admin_bp
 from routes.auth import auth_bp
 from routes.shop import shop_bp
+from routes.team import team_bp
 from datetime import timedelta
 import os
 
@@ -17,6 +18,7 @@ app.register_blueprint(contact_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(shop_bp)
+app.register_blueprint(team_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)

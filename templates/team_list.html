@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đội Ngũ Nhân Viên - Xe Máy Hòa Bình</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">
+    <style>
+        .team-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .team-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .team-hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: -50px auto 60px;
+            padding: 0 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        .team-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .team-avatar {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        .team-info {
+            padding: 25px;
+        }
+        .team-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        .team-position {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .team-specialization {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .team-experience {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            color: #856404;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .team-contact {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #f1f2f6;
+        }
+        .contact-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .btn-detail {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-detail:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="team-hero">
+        <h1>🏆 Đội Ngũ Chuyên Nghiệp</h1>
+        <p>Đội ngũ kỹ thuật viên giàu kinh nghiệm, được đào tạo bài bản và tận tâm với nghề. Chúng tôi cam kết mang đến dịch vụ tốt nhất cho khách hàng.</p>
+    </div>
+
+    <div class="team-stats">
+        <div class="stat-card">
+            <div class="stat-number">{{ team_members|length }}</div>
+            <div class="stat-label">Nhân viên</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Năm kinh nghiệm</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">5000+</div>
+            <div class="stat-label">Khách hàng</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Hài lòng</div>
+        </div>
+    </div>
+
+    <div class="team-container">
+        <div class="team-grid">
+            {% for member in team_members %}
+            <div class="team-card">
+                <img src="{{ member.avatar_url or 'https://ui-avatars.com/api/?name=' + member.name|urlencode + '&background=667eea&color=fff&size=400' }}" alt="{{ member.name }}" class="team-avatar" onerror="this.src='https://ui-avatars.com/api/?name={{ member.name }}&background=667eea&color=fff&size=400'">
+                <div class="team-info">
+                    <h3 class="team-name">{{ member.name }}</h3>
+                    <div class="team-position">{{ member.position }}</div>
+                    {% if member.specialization %}
+                    <div class="team-specialization">{{ member.specialization }}</div>
+                    {% endif %}
+                    <span class="team-experience">⭐ {{ member.experience_years }} năm kinh nghiệm</span>
+                    <div class="team-contact">
+                        <a href="{{ url_for('team.team_detail', member_id=member.id) }}" class="contact-btn btn-detail">
+                            👤 Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer style="background: #2c3e50; color: white; padding: 40px 20px; text-align: center; margin-top: 80px;">
+        <p style="margin: 0; font-size: 1rem;">© 2024 Xưởng Sửa Xe. Địa chỉ: Xóm 4, xã Mai Đình, huyện Sóc Sơn, thành phố Hà Nội</p>
+        <p style="margin: 10px 0 0 0;"><a href="/" style="color: white; text-decoration: none;">← Về trang chủ</a></p>
+    </footer>
+</body>
+</html>
