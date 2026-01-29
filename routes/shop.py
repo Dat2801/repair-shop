@@ -9,27 +9,194 @@ shop_bp = Blueprint('shop', __name__, url_prefix='/shop')
 @shop_bp.route('/phu-tung-chinh-hang')
 def genuine_parts():
     """Phụ tùng chính hãng - Honda, Yamaha, SYM, Piaggio"""
-    return redirect(url_for('shop.products', category='phu_tung_chinh_hang'))
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    # Lấy sản phẩm theo category
+    page = request.args.get('page', 1, type=int)
+    per_page = 12
+    offset = (page - 1) * per_page
+    
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'phu_tung_chinh_hang'")
+    total_products = cursor.fetchone()['total']
+    total_pages = (total_products + per_page - 1) // per_page
+    
+    cursor.execute("""
+        SELECT * FROM products 
+        WHERE is_active = 1 AND category = 'phu_tung_chinh_hang'
+        ORDER BY name ASC
+        LIMIT %s OFFSET %s
+    """, (per_page, offset))
+    products = cursor.fetchall()
+    
+    # Lấy số lượng sản phẩm trong giỏ hàng
+    cart_count = 0
+    if is_logged_in():
+        cursor.execute("SELECT SUM(quantity) as total FROM cart WHERE user_id = %s", (session['user_id'],))
+        result = cursor.fetchone()
+        cart_count = result['total'] if result['total'] else 0
+    
+    cursor.close()
+    conn.close()
+    
+    return render_template('category_genuine.html', 
+                         products=products,
+                         cart_count=cart_count,
+                         page=page,
+                         total_pages=total_pages,
+                         total_products=total_products)
 
 @shop_bp.route('/phu-tung-zin')
 def zin_parts():
     """Phụ tùng zin - Đồ zin theo xe"""
-    return redirect(url_for('shop.products', category='phu_tung_zin'))
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    page = request.args.get('page', 1, type=int)
+    per_page = 12
+    offset = (page - 1) * per_page
+    
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'phu_tung_zin'")
+    total_products = cursor.fetchone()['total']
+    total_pages = (total_products + per_page - 1) // per_page
+    
+    cursor.execute("""
+        SELECT * FROM products 
+        WHERE is_active = 1 AND category = 'phu_tung_zin'
+        ORDER BY name ASC
+        LIMIT %s OFFSET %s
+    """, (per_page, offset))
+    products = cursor.fetchall()
+    
+    cart_count = 0
+    if is_logged_in():
+        cursor.execute("SELECT SUM(quantity) as total FROM cart WHERE user_id = %s", (session['user_id'],))
+        result = cursor.fetchone()
+        cart_count = result['total'] if result['total'] else 0
+    
+    cursor.close()
+    conn.close()
+    
+    return render_template('category_zin.html', 
+                         products=products,
+                         cart_count=cart_count,
+                         page=page,
+                         total_pages=total_pages,
+                         total_products=total_products)
 
 @shop_bp.route('/ac-quy')
 def battery():
     """Ắc quy - Bình điện"""
-    return redirect(url_for('shop.products', category='ac_quy'))
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    page = request.args.get('page', 1, type=int)
+    per_page = 12
+    offset = (page - 1) * per_page
+    
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'ac_quy'")
+    total_products = cursor.fetchone()['total']
+    total_pages = (total_products + per_page - 1) // per_page
+    
+    cursor.execute("""
+        SELECT * FROM products 
+        WHERE is_active = 1 AND category = 'ac_quy'
+        ORDER BY name ASC
+        LIMIT %s OFFSET %s
+    """, (per_page, offset))
+    products = cursor.fetchall()
+    
+    cart_count = 0
+    if is_logged_in():
+        cursor.execute("SELECT SUM(quantity) as total FROM cart WHERE user_id = %s", (session['user_id'],))
+        result = cursor.fetchone()
+        cart_count = result['total'] if result['total'] else 0
+    
+    cursor.close()
+    conn.close()
+    
+    return render_template('category_battery.html', 
+                         products=products,
+                         cart_count=cart_count,
+                         page=page,
+                         total_pages=total_pages,
+                         total_products=total_products)
 
 @shop_bp.route('/lop-xe')
 def tires():
     """Lốp xe - Vỏ xe các loại"""
-    return redirect(url_for('shop.products', category='lop_xe'))
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    page = request.args.get('page', 1, type=int)
+    per_page = 12
+    offset = (page - 1) * per_page
+    
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'lop_xe'")
+    total_products = cursor.fetchone()['total']
+    total_pages = (total_products + per_page - 1) // per_page
+    
+    cursor.execute("""
+        SELECT * FROM products 
+        WHERE is_active = 1 AND category = 'lop_xe'
+        ORDER BY name ASC
+        LIMIT %s OFFSET %s
+    """, (per_page, offset))
+    products = cursor.fetchall()
+    
+    cart_count = 0
+    if is_logged_in():
+        cursor.execute("SELECT SUM(quantity) as total FROM cart WHERE user_id = %s", (session['user_id'],))
+        result = cursor.fetchone()
+        cart_count = result['total'] if result['total'] else 0
+    
+    cursor.close()
+    conn.close()
+    
+    return render_template('category_tires.html', 
+                         products=products,
+                         cart_count=cart_count,
+                         page=page,
+                         total_pages=total_pages,
+                         total_products=total_products)
 
 @shop_bp.route('/nhot')
 def oil():
     """Nhớt - Dầu nhờn các loại"""
-    return redirect(url_for('shop.products', category='dau_nhot'))
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    page = request.args.get('page', 1, type=int)
+    per_page = 12
+    offset = (page - 1) * per_page
+    
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'dau_nhot'")
+    total_products = cursor.fetchone()['total']
+    total_pages = (total_products + per_page - 1) // per_page
+    
+    cursor.execute("""
+        SELECT * FROM products 
+        WHERE is_active = 1 AND category = 'dau_nhot'
+        ORDER BY name ASC
+        LIMIT %s OFFSET %s
+    """, (per_page, offset))
+    products = cursor.fetchall()
+    
+    cart_count = 0
+    if is_logged_in():
+        cursor.execute("SELECT SUM(quantity) as total FROM cart WHERE user_id = %s", (session['user_id'],))
+        result = cursor.fetchone()
+        cart_count = result['total'] if result['total'] else 0
+    
+    cursor.close()
+    conn.close()
+    
+    return render_template('category_oil.html', 
+                         products=products,
+                         cart_count=cart_count,
+                         page=page,
+                         total_pages=total_pages,
+                         total_products=total_products)
 
 @shop_bp.route('/')
 @shop_bp.route('/products')
