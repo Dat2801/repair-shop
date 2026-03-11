@@ -37,9 +37,11 @@ mysql -u root -p suaxemay < update_auth_features.sql
 ### Bước 3: Cập nhật config.py
 
 ```python
-GOOGLE_CLIENT_ID = "your-client-id.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = "your-client-secret"
+GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID"  # Lấy từ Google Cloud Console
+GOOGLE_CLIENT_SECRET = "YOUR_GOOGLE_CLIENT_SECRET"  # Lấy từ Google Cloud Console
 ```
+
+**Lưu ý:** Không commit secrets trực tiếp vào repository. Sử dụng file `.env` hoặc environment variables thay thế.
 
 ## 4. Cấu Hình Email (Gmail)
 

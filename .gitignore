@@ -61,3 +61,6 @@ update_*.py
 
 # Documentation
 AUTH_SETUP.md
+
+# SSH Keys
+key_github_*
