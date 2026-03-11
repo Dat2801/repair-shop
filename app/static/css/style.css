@@ -899,9 +899,11 @@ body {
 }
 
 .stat-box .stat-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
     color: #ffffff;
+    overflow: hidden;
+    line-height: 1;
 }
 
 .stat-box .stat-number {

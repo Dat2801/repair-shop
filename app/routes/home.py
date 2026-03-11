@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session
-from database import get_db_connection
+from app.utils.database import get_db_connection
 
 home_bp = Blueprint('home', __name__)
 

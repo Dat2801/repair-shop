@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify
 import pymysql
-from database import get_db_connection
-from routes.auth import is_logged_in
+from app.utils.database import get_db_connection
+from app.routes.auth import is_logged_in
 
 shop_bp = Blueprint('shop', __name__, url_prefix='/shop')
 

@@ -1,25 +1,29 @@
-from flask import Flask
-from routes.home import home_bp
-from routes.contact import contact_bp
-from routes.admin import admin_bp
-from routes.auth import auth_bp
-from routes.shop import shop_bp
-from routes.team import team_bp
-from datetime import timedelta
+"""
+Repair Shop Application
+Main Entry Point
+"""
+
 import os
+from app import create_app
 
-app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
-app.permanent_session_lifetime = timedelta(days=7)  # Session tồn tại 7 ngày
+# Create Flask app using factory pattern
+app = create_app()
 
-# Đăng ký blueprints
-app.register_blueprint(home_bp)
-app.register_blueprint(contact_bp)
-app.register_blueprint(admin_bp)
-app.register_blueprint(auth_bp)
-app.register_blueprint(shop_bp)
-app.register_blueprint(team_bp)
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
+if __name__ == '__main__':
+    # Get host and port from environment or use defaults
+    host = os.environ.get('FLASK_HOST', '127.0.0.1')
+    port = int(os.environ.get('FLASK_PORT', 5000))
+    debug = os.environ.get('FLASK_DEBUG', True)
+    
+    print(f"\n{'='*60}")
+    print(f"🚀 Starting Motor Việt-Nhật Server")
+    print(f"{'='*60}")
+    print(f"📍 Running on http://{host}:{port}")
+    print(f"🐛 Debug Mode: {debug}")
+    print(f"{'='*60}\n")
+    
+    app.run(
+        host=host,
+        port=port,
+        debug=debug
+    )

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify
 import pymysql
-from database import get_db_connection
+from app.utils.database import get_db_connection
 import bcrypt
 from datetime import datetime, timedelta
 import secrets
@@ -23,7 +23,9 @@ auth_bp = Blueprint('auth', __name__)
 # Import config
 try:
     from config import GOOGLE_CLIENT_ID, EMAIL_CONFIG, OTP_EXPIRY_MINUTES, OTP_LENGTH
-except ImportError:
+    print(f"DEBUG: GOOGLE_CLIENT_ID loaded: {GOOGLE_CLIENT_ID[:20] if GOOGLE_CLIENT_ID else 'None'}...")
+except ImportError as e:
+    print(f"ERROR: Failed to import config: {e}")
     GOOGLE_CLIENT_ID = None
     EMAIL_CONFIG = None
     OTP_EXPIRY_MINUTES = 10
@@ -96,6 +98,7 @@ def verify_google_token(token):
     """Verify Google OAuth token"""
     try:
         if not GOOGLE_CLIENT_ID:
+            print("ERROR: GOOGLE_CLIENT_ID not configured")
             return None
         
         idinfo = id_token.verify_oauth2_token(
@@ -105,6 +108,7 @@ def verify_google_token(token):
         )
         
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            print(f"ERROR: Invalid issuer: {idinfo['iss']}")
             return None
             
         return {
@@ -113,6 +117,9 @@ def verify_google_token(token):
             'picture': idinfo.get('picture'),
             'email_verified': idinfo.get('email_verified', False)
         }
+    except Exception as e:
+        print(f"ERROR verifying Google token: {str(e)}")
+        return None
     except Exception as e:
         print(f"Error verifying Google token: {e}")
         return None
@@ -280,7 +287,7 @@ def login():
             
         except pymysql.Error as e:
             flash(f'Lỗi đăng nhập: {str(e)}', 'error')
-            return render_template('login.html')
+            return render_template('login.html', google_client_id=GOOGLE_CLIENT_ID)
         finally:
             cursor.close()
             conn.close()

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, flash, url_for, session
-from database import get_db_connection
+from app.utils.database import get_db_connection
 
 contact_bp = Blueprint('contact', __name__)
 

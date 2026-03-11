@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from database import get_db_connection
+from app.utils.database import get_db_connection
 
 team_bp = Blueprint('team', __name__, url_prefix='/team')
 
