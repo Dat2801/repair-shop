@@ -4,6 +4,11 @@ Main Entry Point
 """
 
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file FIRST
+load_dotenv()
+
 from app import create_app
 
 # Create Flask app using factory pattern
