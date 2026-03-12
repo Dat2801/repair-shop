@@ -99,14 +99,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-hotline.css') }}">
 </head>
 <body>
-    <!-- Floating Images Left & Right - Full Page Height -->
-    <div class="floating-image floating-left">
-        <img src="{{ url_for('static', filename='images/wave-alpha.jpg') }}" alt="Honda Wave Alpha">
-    </div>
-    <div class="floating-image floating-right">
-        <img src="{{ url_for('static', filename='images/exciter-155.jpg') }}" alt="Yamaha Exciter">
-    </div>
-
     <!-- Floating Contact Icons -->
     <div class="floating-contacts">
         <a href="https://zalo.me/0123456789" target="_blank" class="contact-icon zalo" title="Chat Zalo">
@@ -1269,6 +1261,17 @@
         
         // Start slider
         setTimeout(showSlides, 3000);
+    </script>
+
+    <script>
+        // Move "Cửa Hàng & Trang Thiết Bị" section to be right after stats section
+        document.addEventListener('DOMContentLoaded', function() {
+            var gallery = document.getElementById('gallery');
+            var stats = document.querySelector('.stats-section');
+            if (gallery && stats) {
+                stats.parentNode.insertBefore(gallery, stats.nextSibling);
+            }
+        });
     </script>
 </body>
 </html>
