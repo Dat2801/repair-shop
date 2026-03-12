@@ -22,7 +22,7 @@ auth_bp = Blueprint('auth', __name__)
 
 # Import config
 try:
-    from config import GOOGLE_CLIENT_ID, EMAIL_CONFIG, OTP_EXPIRY_MINUTES, OTP_LENGTH
+    from app.config import GOOGLE_CLIENT_ID, EMAIL_CONFIG, OTP_EXPIRY_MINUTES, OTP_LENGTH
     print(f"DEBUG: GOOGLE_CLIENT_ID loaded: {GOOGLE_CLIENT_ID[:20] if GOOGLE_CLIENT_ID else 'None'}...")
 except ImportError as e:
     print(f"ERROR: Failed to import config: {e}")
