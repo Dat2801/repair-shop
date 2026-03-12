@@ -131,7 +131,7 @@ MYSQL_CONFIG = {
 
 1. ✅ Run SQL setup files
 2. ✅ Configure `config.py`
-3. ✅ Start Flask app: `python3 app.py`
+3. ✅ Start Flask app: `python3 run.py`
 4. ✅ Test at: http://127.0.0.1:5000
 
 ---

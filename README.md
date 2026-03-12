@@ -75,7 +75,7 @@ Chỉnh sửa `.env` với:
 ### 5. Chạy Ứng Dụng
 
 ```bash
-python3 app.py
+python3 run.py
 ```
 
 Mở browser: http://127.0.0.1:5000
@@ -118,7 +118,7 @@ repair-shop/
 ├── tests/                        # Test suite
 │   └── test_booking.py          # Booking tests
 │
-├── app.py                        # App entry point (factory pattern)
+├── run.py                        # App entry point (factory pattern)
 ├── config.py                     # App configuration
 ├── config.example.py            # Config template
 ├── requirements.txt             # Python dependencies

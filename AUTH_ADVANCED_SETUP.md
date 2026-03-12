@@ -84,7 +84,7 @@ FACEBOOK_CLIENT_SECRET = "your-facebook-app-secret"
 ## 6. Chạy Ứng Dụng
 
 ```bash
-python app.py
+python run.py
 ```
 
 ## 7. Kiểm Tra Tính Năng

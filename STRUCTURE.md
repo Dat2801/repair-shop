@@ -103,7 +103,7 @@ for cat_id, cat_name in CATEGORIES.items():
 ## 🚀 Chạy Ứng Dụng
 
 ```bash
-python app.py
+python run.py
 ```
 
 App sẽ khởi động ở `http://127.0.0.1:5000`

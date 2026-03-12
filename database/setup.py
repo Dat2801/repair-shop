@@ -108,7 +108,7 @@ def main():
         print("="*50)
         print("\nNext steps:")
         print("1. Update config.py with your database credentials")
-        print("2. Run: python3 app.py")
+        print("2. Run: python3 run.py")
         print("3. Access: http://127.0.0.1:5000")
         print()
         
