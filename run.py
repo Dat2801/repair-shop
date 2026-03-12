@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 # Load environment variables from .env file FIRST
 load_dotenv()
 
-from app import create_app
+from factory import create_app
 
 # Create Flask app using factory pattern
 app = create_app()
