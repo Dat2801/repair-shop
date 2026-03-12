@@ -3,9 +3,13 @@ Flask Application Factory
 Initializes and configures the Flask app
 """
 
-from flask import Flask
+import sys
 import os
+from flask import Flask
 from dotenv import load_dotenv
+
+# Add root directory to sys.path for module imports
+sys.path.insert(0, os.path.dirname(__file__))
 
 # Load environment variables from .env file
 load_dotenv()

@@ -3,7 +3,7 @@ Database utilities and connection management
 """
 
 import pymysql
-from app.config import MYSQL_CONFIG
+from config import MYSQL_CONFIG
 
 
 def get_db_connection():
