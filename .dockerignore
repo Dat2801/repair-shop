@@ -1,0 +1,39 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.egg-info
+dist
+build
+venv
+env
+.venv
+.eggs
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project files not needed in container
+*.md
+docs/
+tests/
+scripts/
+database/
+*.pub
+key_github_*
+.env
+.env.*
+*.code-workspace
+Procfile
+runtime.txt
