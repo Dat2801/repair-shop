@@ -258,10 +258,12 @@ def login():
                 expiry = datetime.now() + timedelta(minutes=OTP_EXPIRY_MINUTES)
                 
                 cursor.execute("""
+                    DELETE FROM otp_codes WHERE user_id = %s AND purpose = 'email_verification'
+                """, (user['id'],))
+                cursor.execute("""
                     INSERT INTO otp_codes (user_id, code, expiry, purpose)
                     VALUES (%s, %s, %s, 'email_verification')
-                    ON DUPLICATE KEY UPDATE code = %s, expiry = %s, created_at = NOW()
-                """, (user['id'], otp_code, expiry, otp_code, expiry))
+                """, (user['id'], otp_code, expiry))
                 conn.commit()
                 
                 if send_email_otp(user['email'], otp_code):
@@ -462,10 +464,12 @@ def resend_otp():
         expiry = datetime.now() + timedelta(minutes=OTP_EXPIRY_MINUTES)
         
         cursor.execute("""
+            DELETE FROM otp_codes WHERE user_id = %s AND purpose = 'email_verification'
+        """, (session['verify_email_user_id'],))
+        cursor.execute("""
             INSERT INTO otp_codes (user_id, code, expiry, purpose)
             VALUES (%s, %s, %s, 'email_verification')
-            ON DUPLICATE KEY UPDATE code = %s, expiry = %s, created_at = NOW(), used = FALSE
-        """, (session['verify_email_user_id'], otp_code, expiry, otp_code, expiry))
+        """, (session['verify_email_user_id'], otp_code, expiry))
         conn.commit()
         
         if send_email_otp(user['email'], otp_code):

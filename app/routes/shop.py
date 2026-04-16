@@ -349,7 +349,7 @@ def add_to_cart(product_id):
         cursor.execute("""
             INSERT INTO cart (user_id, product_id, quantity) 
             VALUES (%s, %s, %s)
-            ON DUPLICATE KEY UPDATE quantity = quantity + %s
+            ON CONFLICT (user_id, product_id) DO UPDATE SET quantity = cart.quantity + %s
         """, (session['user_id'], product_id, quantity, quantity))
         conn.commit()
         flash(f'✅ Đã thêm {product["name"]} vào giỏ hàng!', 'success')
