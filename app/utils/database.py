@@ -2,33 +2,28 @@
 Database utilities and connection management
 """
 
-import pymysql
-from config import MYSQL_CONFIG
+import os
+import psycopg2
+import psycopg2.extras
 
 
 def get_db_connection():
     """
-    Create and return a database connection.
-    Supports Cloud SQL Unix socket when MYSQL_HOST starts with /cloudsql/.
+    Create and return a PostgreSQL database connection.
+    Uses DATABASE_URL environment variable (provided by Render).
     """
     try:
-        host = MYSQL_CONFIG['host']
-        common = dict(
-            user=MYSQL_CONFIG['user'],
-            password=MYSQL_CONFIG['password'],
-            database=MYSQL_CONFIG['db'],
-            charset=MYSQL_CONFIG['charset'],
-            cursorclass=pymysql.cursors.DictCursor,
-            autocommit=False,
+        database_url = os.getenv("DATABASE_URL")
+        if not database_url:
+            raise Exception("DATABASE_URL environment variable is not set")
+
+        connection = psycopg2.connect(
+            database_url,
+            cursor_factory=psycopg2.extras.RealDictCursor
         )
-
-        if host.startswith('/cloudsql/'):
-            connection = pymysql.connect(unix_socket=host, **common)
-        else:
-            connection = pymysql.connect(host=host, port=MYSQL_CONFIG.get('port', 3306), **common)
-
+        connection.autocommit = False
         return connection
-    except pymysql.Error as e:
+    except Exception as e:
         print(f"Database connection error: {e}")
         return None
 

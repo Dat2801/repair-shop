@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify
-import pymysql
 from app.utils.database import get_db_connection
 import bcrypt
 from datetime import datetime, timedelta

@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify
-import pymysql
 from app.utils.database import get_db_connection
 from app.routes.auth import is_logged_in
 
@@ -17,13 +16,13 @@ def genuine_parts():
     per_page = 12
     offset = (page - 1) * per_page
     
-    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'phu_tung_chinh_hang'")
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = TRUE AND category = 'phu_tung_chinh_hang'")
     total_products = cursor.fetchone()['total']
     total_pages = (total_products + per_page - 1) // per_page
     
     cursor.execute("""
         SELECT * FROM products 
-        WHERE is_active = 1 AND category = 'phu_tung_chinh_hang'
+        WHERE is_active = TRUE AND category = 'phu_tung_chinh_hang'
         ORDER BY name ASC
         LIMIT %s OFFSET %s
     """, (per_page, offset))
@@ -56,13 +55,13 @@ def zin_parts():
     per_page = 12
     offset = (page - 1) * per_page
     
-    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'phu_tung_zin'")
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = TRUE AND category = 'phu_tung_zin'")
     total_products = cursor.fetchone()['total']
     total_pages = (total_products + per_page - 1) // per_page
     
     cursor.execute("""
         SELECT * FROM products 
-        WHERE is_active = 1 AND category = 'phu_tung_zin'
+        WHERE is_active = TRUE AND category = 'phu_tung_zin'
         ORDER BY name ASC
         LIMIT %s OFFSET %s
     """, (per_page, offset))
@@ -94,13 +93,13 @@ def battery():
     per_page = 12
     offset = (page - 1) * per_page
     
-    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'ac_quy'")
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = TRUE AND category = 'ac_quy'")
     total_products = cursor.fetchone()['total']
     total_pages = (total_products + per_page - 1) // per_page
     
     cursor.execute("""
         SELECT * FROM products 
-        WHERE is_active = 1 AND category = 'ac_quy'
+        WHERE is_active = TRUE AND category = 'ac_quy'
         ORDER BY name ASC
         LIMIT %s OFFSET %s
     """, (per_page, offset))
@@ -132,13 +131,13 @@ def tires():
     per_page = 12
     offset = (page - 1) * per_page
     
-    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'lop_xe'")
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = TRUE AND category = 'lop_xe'")
     total_products = cursor.fetchone()['total']
     total_pages = (total_products + per_page - 1) // per_page
     
     cursor.execute("""
         SELECT * FROM products 
-        WHERE is_active = 1 AND category = 'lop_xe'
+        WHERE is_active = TRUE AND category = 'lop_xe'
         ORDER BY name ASC
         LIMIT %s OFFSET %s
     """, (per_page, offset))
@@ -170,13 +169,13 @@ def oil():
     per_page = 12
     offset = (page - 1) * per_page
     
-    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = 1 AND category = 'dau_nhot'")
+    cursor.execute("SELECT COUNT(*) as total FROM products WHERE is_active = TRUE AND category = 'dau_nhot'")
     total_products = cursor.fetchone()['total']
     total_pages = (total_products + per_page - 1) // per_page
     
     cursor.execute("""
         SELECT * FROM products 
-        WHERE is_active = 1 AND category = 'dau_nhot'
+        WHERE is_active = TRUE AND category = 'dau_nhot'
         ORDER BY name ASC
         LIMIT %s OFFSET %s
     """, (per_page, offset))
@@ -215,8 +214,8 @@ def products():
     per_page = 12  # Số sản phẩm mỗi trang
     
     # Xây dựng query
-    query = "SELECT * FROM products WHERE is_active = 1"
-    count_query = "SELECT COUNT(*) as total FROM products WHERE is_active = 1"
+    query = "SELECT * FROM products WHERE is_active = TRUE"
+    count_query = "SELECT COUNT(*) as total FROM products WHERE is_active = TRUE"
     params = []
     
     if search:
@@ -262,7 +261,7 @@ def products():
     products = cursor.fetchall()
     
     # Lấy danh sách categories
-    cursor.execute("SELECT DISTINCT category FROM products WHERE is_active = 1 ORDER BY category")
+    cursor.execute("SELECT DISTINCT category FROM products WHERE is_active = TRUE ORDER BY category")
     categories = [cat['category'] for cat in cursor.fetchall()]
     
     # Lấy số lượng sản phẩm trong giỏ hàng
@@ -294,7 +293,7 @@ def product_detail(product_id):
     conn = get_db_connection()
     cursor = conn.cursor()
     
-    cursor.execute("SELECT * FROM products WHERE id = %s AND is_active = 1", (product_id,))
+    cursor.execute("SELECT * FROM products WHERE id = %s AND is_active = TRUE", (product_id,))
     product = cursor.fetchone()
     
     if not product:
@@ -330,7 +329,7 @@ def add_to_cart(product_id):
     cursor = conn.cursor()
     
     # Kiểm tra sản phẩm tồn tại và còn hàng
-    cursor.execute("SELECT * FROM products WHERE id = %s AND is_active = 1", (product_id,))
+    cursor.execute("SELECT * FROM products WHERE id = %s AND is_active = TRUE", (product_id,))
     product = cursor.fetchone()
     
     if not product:
