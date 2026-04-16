@@ -192,7 +192,7 @@ def register():
             flash('Đăng ký thành công! Vui lòng đăng nhập.', 'success')
             return redirect(url_for('auth.login'))
             
-        except pymysql.Error as e:
+        except Exception as e:
             conn.rollback()
             flash(f'Lỗi đăng ký: {str(e)}', 'error')
             return render_template('register.html')
@@ -284,7 +284,7 @@ def login():
             flash(f'Chào mừng {user["full_name"]}!', 'success')
             return redirect(url_for('home.index'))
             
-        except pymysql.Error as e:
+        except Exception as e:
             flash(f'Lỗi đăng nhập: {str(e)}', 'error')
             return render_template('login.html', google_client_id=GOOGLE_CLIENT_ID)
         finally:
@@ -355,7 +355,7 @@ def google_login():
             'redirect': url_for('home.index')
         })
         
-    except pymysql.Error as e:
+    except Exception as e:
         conn.rollback()
         return jsonify({'success': False, 'message': f'Lỗi: {str(e)}'}), 500
     finally:
@@ -431,7 +431,7 @@ def verify_email():
             flash('✅ Email đã được xác thực thành công!', 'success')
             return redirect(url_for('home.index'))
             
-        except pymysql.Error as e:
+        except Exception as e:
             conn.rollback()
             flash(f'Lỗi: {str(e)}', 'error')
             return render_template('verify_email.html', email=session.get('verify_email'))
@@ -473,7 +473,7 @@ def resend_otp():
         else:
             return jsonify({'success': False, 'message': 'Không thể gửi email'}), 500
             
-    except pymysql.Error as e:
+    except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
     finally:
         cursor.close()
@@ -623,7 +623,7 @@ def edit_profile():
             flash('✅ Cập nhật thông tin thành công!', 'success')
             return redirect(url_for('auth.profile'))
             
-        except pymysql.Error as e:
+        except Exception as e:
             conn.rollback()
             flash(f'❌ Lỗi cập nhật: {str(e)}', 'error')
         finally:
