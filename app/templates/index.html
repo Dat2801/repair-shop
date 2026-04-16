@@ -122,6 +122,13 @@
 
     <!-- Auth Buttons (Top Right) -->
     <div class="top-auth-buttons">
+        {% if session.get('user_id') %}
+        <a href="{{ url_for('auth.profile') }}" class="top-auth-link" title="Tài khoản">👤</a>
+        <a href="{{ url_for('auth.logout') }}" class="top-auth-link" title="Đăng xuất">🚪</a>
+        {% else %}
+        <a href="{{ url_for('auth.login') }}" class="top-auth-link" title="Đăng nhập">🔑 Đăng Nhập</a>
+        <a href="{{ url_for('auth.register') }}" class="top-auth-link" title="Đăng ký">📝 Đăng Ký</a>
+        {% endif %}
         <!-- Cart Icon -->
         <a href="{{ url_for('shop.cart') }}" class="cart-icon-link">
             <svg class="cart-icon-header" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -242,18 +249,7 @@
                         <a href="#rescue-towing">🚛 Kéo Xe Toàn Quốc</a>
                     </div>
                 </li>
-                <li class="dropdown">
-                    <a href="#account" class="dropbtn">👤 Tài Khoản ▼</a>
-                    <div class="dropdown-content">
-                        {% if session.get('user_id') %}
-                        <a href="{{ url_for('auth.profile') }}">👤 Thông Tin Cá Nhân</a>
-                        <a href="{{ url_for('auth.logout') }}">🚪 Đăng Xuất</a>
-                        {% else %}
-                        <a href="{{ url_for('auth.login') }}">🔑 Đăng Nhập</a>
-                        <a href="{{ url_for('auth.register') }}">📝 Đăng Ký</a>
-                        {% endif %}
-                    </div>
-                </li>
+
             </ul>
         </div>
     </nav>
