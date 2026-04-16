@@ -13,7 +13,7 @@ import os
 
 # ── Đường dẫn đến thư mục project ──────────────────────────────────────────
 # Thay "your_username" bằng username PythonAnywhere của bạn
-PROJECT_PATH = '/home/your_username/repair-shop'
+PROJECT_PATH = '/home/Dat2801/repair-shop'
 
 if PROJECT_PATH not in sys.path:
     sys.path.insert(0, PROJECT_PATH)
