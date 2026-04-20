@@ -308,7 +308,12 @@
     <!-- Stats Section -->
     <div class="stats-section">
         <div class="container">
-            <div class="stat-box" onclick="openStatModal('team')" style="cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div class="stats-section-heading">
+            <span class="stats-subtitle">Motor Việt-Nhật</span>
+            <h2>Thành tựu ấn tượng</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+            <div class="stat-box" onclick="openStatModal('team')" style="cursor: pointer;">
                 <div class="stat-icon">👨‍🔧</div>
                 <div class="stat-number">25+</div>
                 <div class="stat-label">Kỹ Thuật Viên</div>
@@ -328,6 +333,7 @@
                 <div class="stat-number">98%</div>
                 <div class="stat-label">Khách Hài Lòng</div>
             </div>
+        </div>
         </div>
     </div>
 
@@ -830,7 +836,8 @@
     <main class="container">
         <!-- Gallery Section -->
         <section class="gallery-section" id="gallery">
-            <h2>🏪 Cửa Hàng & Trang Thiết Bị</h2>
+            <p style="font-size: 0.95rem; color: #888; margin: 0 0 6px; text-decoration: underline; text-underline-offset: 4px;">Motor Việt-Nhật</p>
+            <h2 style="font-size: 2.2rem; font-weight: 800; color: #dc143c; margin: 0 0 2rem;">Cửa hàng &amp; Trang thiết bị</h2>
             
             <!-- Bike Slider -->
             <div class="bike-slider">
@@ -991,8 +998,9 @@
         <!-- Customer Reviews Section -->
         <section class="reviews-section" style="padding: 60px 0; background: #f8f9fa;">
             <div class="container">
-                <h2 class="section-title" style="font-size: 2.5rem; text-align: left; margin-bottom: 20px;">⭐ KHÁCH HÀNG NÓI VỀ CHÚNG TÔI</h2>
-                <p style="text-align: left; font-size: 1.2rem; color: #7f8c8d; margin-bottom: 50px;">Hơn 500 đánh giá 5 sao từ khách hàng hài lòng</p>
+                <p style="font-size: 0.95rem; color: #888; margin: 0 0 6px; text-decoration: underline; text-underline-offset: 4px;">Motor Việt-Nhật</p>
+                <h2 class="section-title" style="font-size: 2.2rem; text-align: left; margin-bottom: 12px; font-weight: 800;">Khách hàng nói về chúng tôi</h2>
+                <p style="text-align: left; font-size: 1rem; color: #7f8c8d; margin-bottom: 40px;">Hơn 500 đánh giá 5 sao từ khách hàng hài lòng</p>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 40px;">
                     <!-- Review Card 1 -->
@@ -1036,8 +1044,8 @@
                 </div>
 
                 <div style="text-align: left;">
-                    <a href="{{ url_for('team.reviews') }}" style="display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 30px; font-weight: 700; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); transition: all 0.3s ease;">
-                        📝 Xem Tất Cả Đánh Giá (500+)
+                    <a href="{{ url_for('team.reviews') }}" style="display: inline-block; padding: 14px 36px; background: #dc143c; color: white; text-decoration: none; border-radius: 30px; font-weight: 700; font-size: 1rem; box-shadow: 0 6px 20px rgba(220, 20, 60, 0.3); transition: all 0.3s ease;">
+                        Xem tất cả đánh giá (500+)
                     </a>
                 </div>
             </div>
@@ -1101,26 +1109,52 @@
 
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
+            <div class="footer-grid">
+                <!-- Col 1: Logo + Mô tả -->
+                <div class="footer-col footer-col-logo">
                     <h3>MOTOR VIỆT-NHẬT</h3>
-                    <p>Chuyên sửa chữa, bảo dưỡng & độ xe máy chuyên nghiệp</p>
-                    <p>Cam kết chất lượng - Giá cả hợp lý</p>
+                    <p>Chuyên sửa chữa, bảo dưỡng &amp; độ xe máy chuyên nghiệp tại Hà Nội.</p>
+                    <p>Cam kết chất lượng - Giá cả hợp lý - Bảo hành chính hãng.</p>
+                    <div class="footer-socials">
+                        <a href="https://www.facebook.com/CS2trungkinhcaugiayHN" target="_blank" class="footer-social-icon" title="Facebook">f</a>
+                        <a href="https://zalo.me/0123456789" target="_blank" class="footer-social-icon" title="Zalo">Z</a>
+                        <a href="https://www.tiktok.com/@suaxemotor" target="_blank" class="footer-social-icon" title="TikTok">T</a>
+                        <a href="https://www.youtube.com/@motorvietnhat" target="_blank" class="footer-social-icon" title="YouTube">▶</a>
+                    </div>
                 </div>
-                <div class="footer-row">
-                    <div class="footer-section">
-                        <h4>Liên hệ</h4>
-                        <p>📍 Địa chỉ: Hà Nội</p>
-                        <p>⏰ Giờ mở cửa: 7:00 - 19:00</p>
-                    </div>
-                    <div class="footer-section">
-                        <h4>Dịch vụ</h4>
-                        <p>✅ Sửa chữa động cơ xe máy</p>
-                        <p>✅ Bảo dưỡng định kỳ xe</p>
-                        <p>✅ Độ đèn LED, độ đồ chơi</p>
-                        <p>✅ Thay nhớt, lốp, ắc quy</p>
-                        <p>✅ Cứu hộ xe máy 24/7</p>
-                    </div>
+
+                <!-- Col 2: Thông tin liên hệ -->
+                <div class="footer-col">
+                    <h4>Thông tin liên hệ</h4>
+                    <div class="footer-contact-item">📞 Hotline: 097 660 55 88</div>
+                    <div class="footer-contact-item">📧 motorvietnhat@gmail.com</div>
+                    <div class="footer-contact-item">📍 Hà Nội (4 chi nhánh)</div>
+                    <div class="footer-contact-item">⏰ 7:00 - 19:00 (Cả tuần)</div>
+                </div>
+
+                <!-- Col 3: Dịch vụ -->
+                <div class="footer-col">
+                    <h4>Dịch vụ</h4>
+                    <ul>
+                        <li>Sửa chữa động cơ xe máy</li>
+                        <li>Bảo dưỡng định kỳ</li>
+                        <li>Độ đèn LED &amp; phụ kiện</li>
+                        <li>Thay nhớt, lốp, ắc quy</li>
+                        <li>Cứu hộ xe máy 24/7</li>
+                        <li>Giao nhận xe tại nhà</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Thông tin -->
+                <div class="footer-col">
+                    <h4>Thông tin</h4>
+                    <ul>
+                        <li>Chính sách bảo hành</li>
+                        <li>Hướng dẫn đặt lịch</li>
+                        <li>Phụ tùng chính hãng</li>
+                        <li>Giới thiệu về chúng tôi</li>
+                        <li>Liên hệ tư vấn</li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
