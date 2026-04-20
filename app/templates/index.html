@@ -332,7 +332,7 @@
     </div>
 
     <!-- Fixed Left Banner - Combined (Miễn Phí + Phụ Tùng) -->
-    <div style="position: fixed; left: 0; top: 0; height: 100vh; width: calc((100vw - 1200px) / 2); min-width: 155px; max-width: 230px; z-index: 99; box-shadow: 4px 0 20px rgba(0,0,0,0.2); display: flex; flex-direction: column; overflow-y: auto;">
+    <div id="sidebar-left" style="position: fixed; left: 0; top: 0; height: 100vh; width: calc((100vw - 1200px) / 2); min-width: 155px; max-width: 230px; z-index: 99; box-shadow: 4px 0 20px rgba(0,0,0,0.2); display: flex; flex-direction: column; overflow-y: auto;">
         <!-- Free Services - Red -->
         <div style="background: linear-gradient(180deg, #dc143c 0%, #8b0000 100%); color: white; padding: 16px 12px; flex: 1; display: flex; flex-direction: column; justify-content: center;">
             <div style="text-align: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px;">
@@ -398,7 +398,7 @@
     </div>
 
     <!-- Fixed Right Banner - Reviews -->
-    <div style="position: fixed; right: 0; top: 0; height: 100vh; width: calc((100vw - 1200px) / 2); min-width: 155px; max-width: 230px; background: white; padding: 16px 12px; z-index: 99; box-shadow: -4px 0 20px rgba(0,0,0,0.15); overflow-y: auto; display: flex; flex-direction: column; justify-content: center;">
+    <div id="sidebar-right" style="position: fixed; right: 0; top: 0; height: 100vh; width: calc((100vw - 1200px) / 2); min-width: 155px; max-width: 230px; background: white; padding: 16px 12px; z-index: 99; box-shadow: -4px 0 20px rgba(0,0,0,0.15); overflow-y: auto; display: flex; flex-direction: column; justify-content: center;">
         <div style="text-align: center; margin-bottom: 12px; border-bottom: 2px solid #dc143c; padding-bottom: 10px;">
             <p style="margin: 0; font-size: 0.72rem; font-weight: 900; color: #2c3e50; letter-spacing: 0.5px;">⭐ KHÁCH HÀNG NÓI VỀ CHÚNG TÔI</p>
         </div>
@@ -1047,6 +1047,64 @@
     <!-- JavaScript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script>
+        // Position sidebars: from #gallery top to #contact top
+        function positionSidebars() {
+            const gallery = document.getElementById('gallery');
+            const contact = document.getElementById('contact');
+            const sidebarLeft = document.getElementById('sidebar-left');
+            const sidebarRight = document.getElementById('sidebar-right');
+            if (!gallery || !contact || !sidebarLeft || !sidebarRight) return;
+
+            const galleryTop = gallery.getBoundingClientRect().top + window.scrollY;
+            const contactTop = contact.getBoundingClientRect().top + window.scrollY;
+            const sidebarHeight = contactTop - galleryTop;
+
+            [sidebarLeft, sidebarRight].forEach(el => {
+                el.style.top = galleryTop + 'px';
+                el.style.height = sidebarHeight + 'px';
+            });
+
+            // Adjust top on scroll to keep fixed relative to viewport within range
+            function onScroll() {
+                const scrollY = window.scrollY;
+                const topInView = galleryTop - scrollY;
+                const bottomInView = contactTop - scrollY;
+
+                let fixedTop, fixedHeight;
+                if (topInView >= 0 && bottomInView <= window.innerHeight) {
+                    // Entire range visible
+                    fixedTop = topInView;
+                    fixedHeight = sidebarHeight;
+                } else if (topInView < 0 && bottomInView > 0) {
+                    // Scrolled past top, bottom still visible
+                    fixedTop = 0;
+                    fixedHeight = Math.min(bottomInView, window.innerHeight);
+                } else if (topInView >= 0 && bottomInView > window.innerHeight) {
+                    // Top visible, bottom below viewport
+                    fixedTop = topInView;
+                    fixedHeight = window.innerHeight - topInView;
+                } else if (topInView < 0 && bottomInView <= 0) {
+                    // Scrolled past entire range - hide
+                    fixedTop = 0;
+                    fixedHeight = 0;
+                } else {
+                    fixedTop = 0;
+                    fixedHeight = window.innerHeight;
+                }
+
+                [sidebarLeft, sidebarRight].forEach(el => {
+                    el.style.top = fixedTop + 'px';
+                    el.style.height = fixedHeight + 'px';
+                    el.style.display = fixedHeight > 0 ? 'flex' : 'none';
+                });
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        }
+
+        window.addEventListener('load', positionSidebars);
+
         // Auto-hide notifications after 5 seconds
         setTimeout(() => {
             const notifications = document.querySelectorAll('.notification');
