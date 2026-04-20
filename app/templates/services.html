@@ -1,12 +1,343 @@
 {% extends "base.html" %}
 
-{% block title %}Dịch vụ - Repair Shop{% endblock %}
+{% block title %}Dịch Vụ - Motor Việt-Nhật{% endblock %}
 
 {% block content %}
-<h1>Dịch vụ của chúng tôi</h1>
-<ul>
-    <li>Sửa chữa điện tử</li>
-    <li>Bảo trì thiết bị</li>
-    <li>Tư vấn kỹ thuật</li>
-</ul>
+<style>
+    .services-hero {
+        background: linear-gradient(135deg, #1a0000 0%, #8b0000 50%, #dc143c 100%);
+        padding: 80px 20px;
+        text-align: center;
+        color: white;
+    }
+    .services-hero h1 { font-size: 3rem; font-weight: 900; margin: 0 0 15px; }
+    .services-hero p { font-size: 1.2rem; opacity: 0.9; margin: 0; }
+
+    .services-section { padding: 60px 20px; }
+    .services-section:nth-child(even) { background: #f8f9fa; }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .section-title h2 {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #2c3e50;
+        display: inline-block;
+        border-bottom: 4px solid #dc143c;
+        padding-bottom: 10px;
+    }
+    .section-title p { color: #7f8c8d; margin-top: 10px; font-size: 1rem; }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .service-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+    .service-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .service-card-body { padding: 20px; }
+    .service-card-body h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 0 0 12px;
+        line-height: 1.4;
+    }
+    .service-price {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .price-current {
+        font-size: 1.3rem;
+        font-weight: 900;
+        color: #dc143c;
+    }
+    .price-old {
+        font-size: 0.9rem;
+        color: #aaa;
+        text-decoration: line-through;
+    }
+    .price-badge {
+        background: #dc143c;
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+    }
+
+    .cta-section {
+        background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+        padding: 60px 20px;
+        text-align: center;
+        color: white;
+    }
+    .cta-section h2 { font-size: 2rem; font-weight: 900; margin-bottom: 15px; }
+    .cta-section p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; }
+    .cta-btn {
+        display: inline-block;
+        background: white;
+        color: #dc143c;
+        font-weight: 800;
+        font-size: 1.1rem;
+        padding: 15px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: transform 0.2s;
+    }
+    .cta-btn:hover { transform: scale(1.05); color: #dc143c; text-decoration: none; }
+
+    @media (max-width: 768px) {
+        .services-hero h1 { font-size: 2rem; }
+        .services-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+    }
+    @media (max-width: 480px) {
+        .services-grid { grid-template-columns: 1fr; }
+    }
+</style>
+
+<!-- Hero -->
+<div class="services-hero">
+    <h1>🔧 DỊCH VỤ SỬA CHỮA</h1>
+    <p>Chuyên nghiệp - Uy tín - Giá hợp lý | Motor Việt-Nhật Hà Nội</p>
+</div>
+
+<!-- Nhóm 1: Vệ sinh & Kim phun xăng -->
+<div class="services-section">
+    <div class="section-title">
+        <h2>⚡ Vệ Sinh Kim Phun Xăng & Họng Ga</h2>
+        <p>Làm sạch hệ thống nhiên liệu, tiết kiệm xăng, tăng hiệu suất động cơ</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/11890954/pexels-photo-11890954.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh buồng đốt kim phun xăng" loading="lazy">
+            <div class="service-card-body">
+                <h3>Vệ sinh buồng đốt và kim phun xăng</h3>
+                <div class="service-price">
+                    <span class="price-current">240.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/8550664/pexels-photo-8550664.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh nồi xe tay ga" loading="lazy">
+            <div class="service-card-body">
+                <h3>Vệ sinh nồi xe tay ga Honda, Yamaha</h3>
+                <div class="service-price">
+                    <span class="price-current">130.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/11890966/pexels-photo-11890966.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh kim phun xăng Fi" loading="lazy">
+            <div class="service-card-body">
+                <h3>Vệ sinh kim phun xăng điện tử Fi</h3>
+                <div class="service-price">
+                    <span class="price-current">100.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/11890956/pexels-photo-11890956.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh kim phun xăng Exciter 155" loading="lazy">
+            <div class="service-card-body">
+                <h3>Vệ sinh kim phun xăng Fi xe Exciter 155</h3>
+                <div class="service-price">
+                    <span class="price-current">130.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/11890947/pexels-photo-11890947.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh họng xăng" loading="lazy">
+            <div class="service-card-body">
+                <h3>Vệ sinh họng xăng và kim phun xăng</h3>
+                <div class="service-price">
+                    <span class="price-current">250.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/11890962/pexels-photo-11890962.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh thay bạc đạn" loading="lazy">
+            <div class="service-card-body">
+                <h3>Công vệ sinh và thay bạc đạn lap xe tay ga</h3>
+                <div class="service-price">
+                    <span class="price-current">200.000 đ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nhóm 2: Gói bảo dưỡng -->
+<div class="services-section">
+    <div class="section-title">
+        <h2>🛠️ Gói Bảo Dưỡng Xe</h2>
+        <p>Bảo dưỡng định kỳ toàn diện, kéo dài tuổi thọ xe</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/5184987/pexels-photo-5184987.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Bảo dưỡng xe tay ga 10 bước" loading="lazy">
+            <div class="service-card-body">
+                <h3>Gói bảo dưỡng xe tay ga tiêu chuẩn 10 bước</h3>
+                <div class="service-price">
+                    <span class="price-old">300.000 đ</span>
+                    <span class="price-current">180.000 đ</span>
+                    <span class="price-badge">-40%</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/3822840/pexels-photo-3822840.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Bảo dưỡng xe số côn 10 bước" loading="lazy">
+            <div class="service-card-body">
+                <h3>Gói bảo dưỡng xe máy số, xe côn tay tiêu chuẩn 10 bước</h3>
+                <div class="service-price">
+                    <span class="price-old">250.000 đ</span>
+                    <span class="price-current">150.000 đ</span>
+                    <span class="price-badge">-40%</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/9607050/pexels-photo-9607050.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Bảo dưỡng xe tay ga nâng cao 14 bước" loading="lazy">
+            <div class="service-card-body">
+                <h3>Gói bảo dưỡng xe tay ga nâng cao 14 bước</h3>
+                <div class="service-price">
+                    <span class="price-old">900.000 đ</span>
+                    <span class="price-current">480.000 đ</span>
+                    <span class="price-badge">-47%</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/8550666/pexels-photo-8550666.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Bảo dưỡng xe số côn nâng cao 14 bước" loading="lazy">
+            <div class="service-card-body">
+                <h3>Gói bảo dưỡng xe số, xe côn tay nâng cao 14 bước</h3>
+                <div class="service-price">
+                    <span class="price-old">800.000 đ</span>
+                    <span class="price-current">430.000 đ</span>
+                    <span class="price-badge">-46%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nhóm 3: Sửa chữa heo dầu & dây cáp -->
+<div class="services-section">
+    <div class="section-title">
+        <h2>🔩 Vệ Sinh Heo Dầu & Dây Cáp</h2>
+        <p>Đảm bảo hệ thống phanh và điều khiển hoạt động trơn tru, an toàn</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/1683406/pexels-photo-1683406.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh heo dầu 2 thắng đĩa" loading="lazy">
+            <div class="service-card-body">
+                <h3>Vệ sinh heo dầu cho xe 2 thắng đĩa</h3>
+                <div class="service-price">
+                    <span class="price-current">200.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/5184998/pexels-photo-5184998.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh heo dầu 1 thắng đĩa" loading="lazy">
+            <div class="service-card-body">
+                <h3>Vệ sinh heo dầu cho xe 1 thắng đĩa</h3>
+                <div class="service-price">
+                    <span class="price-current">150.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/12000095/pexels-photo-12000095.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Làm nhẹ dây ga dây côn" loading="lazy">
+            <div class="service-card-body">
+                <h3>Vệ sinh, làm nhẹ dây ga, dây côn</h3>
+                <div class="service-price">
+                    <span class="price-current">150.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/27704020/pexels-photo-27704020.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Khắc phục đồng hồ Vario" loading="lazy">
+            <div class="service-card-body">
+                <h3>Khắc phục lỗi vỡ nước đồng hồ Vario</h3>
+                <div class="service-price">
+                    <span class="price-current">200.000 đ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nhóm 4: Thay chén cổ -->
+<div class="services-section">
+    <div class="section-title">
+        <h2>⚙️ Thay Chén Cổ Xe Máy</h2>
+        <p>Khắc phục tình trạng chảy nhớt cổ, đảm bảo động cơ không bị hao dầu</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/11890979/pexels-photo-11890979.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Thay chén cổ Honda" loading="lazy">
+            <div class="service-card-body">
+                <h3>Thay chén cổ xe máy Honda</h3>
+                <div class="service-price">
+                    <span class="price-current">300.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/11890958/pexels-photo-11890958.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Thay chén cổ Yamaha" loading="lazy">
+            <div class="service-card-body">
+                <h3>Thay chén cổ xe máy Yamaha</h3>
+                <div class="service-price">
+                    <span class="price-current">350.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/11890963/pexels-photo-11890963.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Thay chén cổ Honda Sonic 150" loading="lazy">
+            <div class="service-card-body">
+                <h3>Thay chén cổ Honda Sonic 150</h3>
+                <div class="service-price">
+                    <span class="price-current">500.000 đ</span>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <img src="https://images.pexels.com/photos/11890980/pexels-photo-11890980.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Thay chén cổ PCX" loading="lazy">
+            <div class="service-card-body">
+                <h3>Thay chén cổ xe PCX</h3>
+                <div class="service-price">
+                    <span class="price-current">400.000 đ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+    <h2>📞 Đặt Lịch Dịch Vụ Ngay Hôm Nay</h2>
+    <p>Kỹ thuật viên chuyên nghiệp, phụ tùng chính hãng, bảo hành đầy đủ</p>
+    <a href="{{ url_for('contact') }}" class="cta-btn">Liên hệ đặt lịch →</a>
+</div>
+
 {% endblock %}
