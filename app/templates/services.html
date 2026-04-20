@@ -59,9 +59,52 @@
         font-size: 1rem;
         font-weight: 700;
         color: #2c3e50;
-        margin: 0 0 12px;
+        margin: 0 0 8px;
         line-height: 1.4;
     }
+    .service-detail {
+        font-size: 0.85rem;
+        color: #666;
+        margin: 0 0 10px;
+        line-height: 1.5;
+    }
+    .service-includes {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 12px;
+        font-size: 0.8rem;
+        color: #555;
+    }
+    .service-includes li::before { content: "✔ "; color: #27ae60; font-weight: bold; }
+    .service-includes li { padding: 2px 0; }
+    .service-meta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+        font-size: 0.75rem;
+    }
+    .service-meta span {
+        background: #f0f0f0;
+        padding: 3px 8px;
+        border-radius: 20px;
+        color: #555;
+    }
+    .btn-booking {
+        display: block;
+        width: 100%;
+        background: linear-gradient(135deg, #dc143c, #8b0000);
+        color: white;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        margin-top: 10px;
+        transition: opacity 0.2s;
+    }
+    .btn-booking:hover { opacity: 0.85; color: white; text-decoration: none; }
     .service-price {
         display: flex;
         align-items: center;
@@ -134,54 +177,123 @@
             <img src="https://images.pexels.com/photos/11890954/pexels-photo-11890954.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh buồng đốt kim phun xăng" loading="lazy">
             <div class="service-card-body">
                 <h3>Vệ sinh buồng đốt và kim phun xăng</h3>
+                <p class="service-detail">Làm sạch muội than tích tụ trong buồng đốt, kim phun xăng, giúp xe nổ êm, tiết kiệm nhiên liệu.</p>
+                <ul class="service-includes">
+                    <li>Tháo và vệ sinh kim phun xăng siêu âm</li>
+                    <li>Làm sạch buồng đốt, piston</li>
+                    <li>Vệ sinh họng ga, cánh bướm ga</li>
+                    <li>Kiểm tra áp suất phun, hiệu chỉnh ECU</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 60–90 phút</span>
+                    <span>🔧 Tất cả dòng xe FI</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">240.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/8550664/pexels-photo-8550664.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh nồi xe tay ga" loading="lazy">
             <div class="service-card-body">
                 <h3>Vệ sinh nồi xe tay ga Honda, Yamaha</h3>
+                <p class="service-detail">Vệ sinh toàn bộ cụm nồi xe tay ga, bao gồm puly, dây curoa, bi nhông — tăng độ êm và kéo dài tuổi thọ.</p>
+                <ul class="service-includes">
+                    <li>Tháo và vệ sinh puly trước/sau</li>
+                    <li>Kiểm tra dây curoa, thay nếu cần</li>
+                    <li>Vệ sinh bi nhông, chỉnh lại khe hở</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 45–60 phút</span>
+                    <span>🔧 Honda, Yamaha tay ga</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">130.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/11890966/pexels-photo-11890966.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh kim phun xăng Fi" loading="lazy">
             <div class="service-card-body">
                 <h3>Vệ sinh kim phun xăng điện tử Fi</h3>
+                <p class="service-detail">Dịch vụ vệ sinh kim phun xăng điện tử cho các dòng xe phun xăng điện tử (Fi), giúp xe nổ máy dễ, không giật.</p>
+                <ul class="service-includes">
+                    <li>Vệ sinh kim phun siêu âm</li>
+                    <li>Kiểm tra lưu lượng phun</li>
+                    <li>Kiểm tra cảm biến oxy, cảm biến nhiệt độ</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 30–45 phút</span>
+                    <span>🔧 Xe FI phổ thông</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">100.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/11890956/pexels-photo-11890956.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh kim phun xăng Exciter 155" loading="lazy">
             <div class="service-card-body">
                 <h3>Vệ sinh kim phun xăng Fi xe Exciter 155</h3>
+                <p class="service-detail">Chuyên biệt cho Yamaha Exciter 155, vệ sinh kim phun + họng ga + cảm biến — phù hợp cho xe thể thao tốc độ cao.</p>
+                <ul class="service-includes">
+                    <li>Vệ sinh kim phun siêu âm chuyên biệt</li>
+                    <li>Làm sạch body bướm ga 42mm</li>
+                    <li>Kiểm tra áp suất nhiên liệu</li>
+                    <li>Reset cảm biến vị trí bướm ga (TPS)</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 45–60 phút</span>
+                    <span>🔧 Yamaha Exciter 155</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">130.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/11890947/pexels-photo-11890947.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh họng xăng" loading="lazy">
             <div class="service-card-body">
                 <h3>Vệ sinh họng xăng và kim phun xăng</h3>
+                <p class="service-detail">Vệ sinh đồng thời cả họng ga và kim phun xăng — giải quyết triệt để tình trạng xe giật, hao xăng, khó nổ máy.</p>
+                <ul class="service-includes">
+                    <li>Vệ sinh họng ga, cánh bướm ga</li>
+                    <li>Vệ sinh kim phun siêu âm</li>
+                    <li>Kiểm tra và làm sạch ống dẫn xăng</li>
+                    <li>Hiệu chỉnh hỗn hợp xăng/gió</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 60–90 phút</span>
+                    <span>🔧 Tất cả dòng xe</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">250.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/11890962/pexels-photo-11890962.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh thay bạc đạn" loading="lazy">
             <div class="service-card-body">
                 <h3>Công vệ sinh và thay bạc đạn lap xe tay ga</h3>
+                <p class="service-detail">Vệ sinh cụm lap (bánh đà) và thay bạc đạn mòn — khắc phục tiếng ồn, rung khi chạy ở tốc độ cao.</p>
+                <ul class="service-includes">
+                    <li>Tháo rã và vệ sinh cụm lap</li>
+                    <li>Thay bạc đạn lap chính hãng</li>
+                    <li>Kiểm tra cuộn sạc, cuộn đánh lửa</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 60 phút</span>
+                    <span>🔧 Xe tay ga</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">200.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
     </div>
@@ -198,44 +310,96 @@
             <img src="https://images.pexels.com/photos/5184987/pexels-photo-5184987.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Bảo dưỡng xe tay ga 10 bước" loading="lazy">
             <div class="service-card-body">
                 <h3>Gói bảo dưỡng xe tay ga tiêu chuẩn 10 bước</h3>
+                <p class="service-detail">Gói bảo dưỡng toàn diện cho xe tay ga, bao gồm 10 hạng mục kiểm tra và vệ sinh quan trọng nhất.</p>
+                <ul class="service-includes">
+                    <li>Thay nhớt động cơ (chưa bao gồm tiền nhớt)</li>
+                    <li>Vệ sinh lọc gió, bugi, bình xăng con</li>
+                    <li>Kiểm tra phanh, lốp, đèn, ắc quy</li>
+                    <li>Tra dầu mỡ toàn bộ các khớp chuyển động</li>
+                    <li>Tặng kiểm tra xe miễn phí 5 hạng mục</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 90–120 phút</span>
+                    <span>🔧 Xe tay ga</span>
+                </div>
                 <div class="service-price">
                     <span class="price-old">300.000 đ</span>
                     <span class="price-current">180.000 đ</span>
                     <span class="price-badge">-40%</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/3822840/pexels-photo-3822840.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Bảo dưỡng xe số côn 10 bước" loading="lazy">
             <div class="service-card-body">
                 <h3>Gói bảo dưỡng xe máy số, xe côn tay tiêu chuẩn 10 bước</h3>
+                <p class="service-detail">Bảo dưỡng định kỳ cho xe số và côn tay, kiểm tra toàn bộ các bộ phận cơ bản đảm bảo xe vận hành an toàn.</p>
+                <ul class="service-includes">
+                    <li>Thay nhớt động cơ (chưa bao gồm tiền nhớt)</li>
+                    <li>Vệ sinh bộ chế hòa khí / kim phun</li>
+                    <li>Chỉnh xích, kiểm tra nhông xích</li>
+                    <li>Kiểm tra phanh, lốp, đèn, còi</li>
+                    <li>Tặng kiểm tra xe miễn phí 5 hạng mục</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 90–120 phút</span>
+                    <span>🔧 Xe số, côn tay</span>
+                </div>
                 <div class="service-price">
                     <span class="price-old">250.000 đ</span>
                     <span class="price-current">150.000 đ</span>
                     <span class="price-badge">-40%</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/9607050/pexels-photo-9607050.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Bảo dưỡng xe tay ga nâng cao 14 bước" loading="lazy">
             <div class="service-card-body">
                 <h3>Gói bảo dưỡng xe tay ga nâng cao 14 bước</h3>
+                <p class="service-detail">Gói bảo dưỡng chuyên sâu cho xe tay ga, bao gồm tất cả 14 hạng mục từ động cơ đến hệ thống điện.</p>
+                <ul class="service-includes">
+                    <li>Toàn bộ 10 bước tiêu chuẩn</li>
+                    <li>Vệ sinh nồi, vệ sinh kim phun siêu âm</li>
+                    <li>Vệ sinh heo dầu phanh</li>
+                    <li>Kiểm tra và thay dầu phanh nếu cần</li>
+                    <li>Kiểm tra hệ thống sạc, bình ắc quy</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 2–3 giờ</span>
+                    <span>🔧 Xe tay ga cao cấp</span>
+                </div>
                 <div class="service-price">
                     <span class="price-old">900.000 đ</span>
                     <span class="price-current">480.000 đ</span>
                     <span class="price-badge">-47%</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/8550666/pexels-photo-8550666.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Bảo dưỡng xe số côn nâng cao 14 bước" loading="lazy">
             <div class="service-card-body">
                 <h3>Gói bảo dưỡng xe số, xe côn tay nâng cao 14 bước</h3>
+                <p class="service-detail">Bảo dưỡng chuyên sâu 14 bước cho xe số và côn tay — tối ưu hiệu suất, kéo dài tuổi thọ động cơ.</p>
+                <ul class="service-includes">
+                    <li>Toàn bộ 10 bước tiêu chuẩn</li>
+                    <li>Vệ sinh bộ chế hòa khí / kim phun siêu âm</li>
+                    <li>Kiểm tra và chỉnh côn, ly hợp</li>
+                    <li>Kiểm tra hệ thống điện, đánh lửa</li>
+                    <li>Tra dầu phuộc nhún, kiểm tra giảm xóc</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 2–3 giờ</span>
+                    <span>🔧 Xe số, côn tay</span>
+                </div>
                 <div class="service-price">
                     <span class="price-old">800.000 đ</span>
                     <span class="price-current">430.000 đ</span>
                     <span class="price-badge">-46%</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
     </div>
@@ -252,36 +416,83 @@
             <img src="https://images.pexels.com/photos/1683406/pexels-photo-1683406.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh heo dầu 2 thắng đĩa" loading="lazy">
             <div class="service-card-body">
                 <h3>Vệ sinh heo dầu cho xe 2 thắng đĩa</h3>
+                <p class="service-detail">Vệ sinh và tái bảo dưỡng 2 cụm heo dầu (trước + sau), đảm bảo phanh đĩa hoạt động nhạy, không bị kẹt, không rỉ dầu.</p>
+                <ul class="service-includes">
+                    <li>Tháo và vệ sinh heo dầu trước + sau</li>
+                    <li>Tra mỡ piston heo dầu chuyên dụng</li>
+                    <li>Kiểm tra và thay má phanh nếu cần</li>
+                    <li>Kiểm tra đĩa phanh, xylanh dầu phanh</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 45–60 phút</span>
+                    <span>🔧 Xe 2 thắng đĩa</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">200.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/5184998/pexels-photo-5184998.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Vệ sinh heo dầu 1 thắng đĩa" loading="lazy">
             <div class="service-card-body">
                 <h3>Vệ sinh heo dầu cho xe 1 thắng đĩa</h3>
+                <p class="service-detail">Vệ sinh heo dầu phanh đĩa trước, khắc phục tình trạng phanh bị kẹt, kêu tiếng rít hoặc rỉ dầu phanh.</p>
+                <ul class="service-includes">
+                    <li>Tháo và vệ sinh heo dầu trước</li>
+                    <li>Tra mỡ piston heo dầu chuyên dụng</li>
+                    <li>Kiểm tra má phanh, đĩa phanh</li>
+                    <li>Kiểm tra xylanh dầu phanh trên tay lái</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 30–45 phút</span>
+                    <span>🔧 Xe 1 thắng đĩa</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">150.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/12000095/pexels-photo-12000095.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Làm nhẹ dây ga dây côn" loading="lazy">
             <div class="service-card-body">
                 <h3>Vệ sinh, làm nhẹ dây ga, dây côn</h3>
+                <p class="service-detail">Tra dầu và vệ sinh dây ga, dây côn — giúp tay ga nhẹ nhàng, không bị nặng tay hoặc kẹt khi vặn ga.</p>
+                <ul class="service-includes">
+                    <li>Tháo và tra dầu dây ga, dây côn</li>
+                    <li>Kiểm tra và chỉnh độ căng dây</li>
+                    <li>Kiểm tra đầu bọc dây, thay nếu nứt vỡ</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 20–30 phút</span>
+                    <span>🔧 Tất cả dòng xe</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">150.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/27704020/pexels-photo-27704020.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Khắc phục đồng hồ Vario" loading="lazy">
             <div class="service-card-body">
                 <h3>Khắc phục lỗi vỡ nước đồng hồ Vario</h3>
+                <p class="service-detail">Sửa chữa chuyên biệt lỗi vỡ nước (ẩm mốc, hiện tượng hơi nước) bên trong đồng hồ xe Honda Vario.</p>
+                <ul class="service-includes">
+                    <li>Tháo và sấy khô đồng hồ</li>
+                    <li>Làm sạch kính đồng hồ, thay ron cao su</li>
+                    <li>Dán keo chống thấm nước chuyên dụng</li>
+                    <li>Kiểm tra chức năng hiển thị sau xử lý</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 30–45 phút</span>
+                    <span>🔧 Honda Vario</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">200.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
     </div>
@@ -298,36 +509,86 @@
             <img src="https://images.pexels.com/photos/11890979/pexels-photo-11890979.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Thay chén cổ Honda" loading="lazy">
             <div class="service-card-body">
                 <h3>Thay chén cổ xe máy Honda</h3>
+                <p class="service-detail">Thay phớt cổ (chén cổ) cho các dòng xe Honda, khắc phục hiện tượng chảy dầu từ cổ máy xuống lốc máy.</p>
+                <ul class="service-includes">
+                    <li>Tháo cụm đầu máy, vệ sinh sạch sẽ</li>
+                    <li>Thay phớt cổ máy Honda chính hãng</li>
+                    <li>Kiểm tra ron nắp máy, ron cổ</li>
+                    <li>Bảo hành 3 tháng hoặc 3.000 km</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 60–90 phút</span>
+                    <span>🔧 Xe Honda phổ thông</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">300.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/11890958/pexels-photo-11890958.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Thay chén cổ Yamaha" loading="lazy">
             <div class="service-card-body">
                 <h3>Thay chén cổ xe máy Yamaha</h3>
+                <p class="service-detail">Thay phớt cổ máy cho các dòng xe Yamaha, sử dụng phớt chính hãng Yamaha đảm bảo độ kín khít và bền bỉ.</p>
+                <ul class="service-includes">
+                    <li>Tháo cụm đầu máy, vệ sinh sạch sẽ</li>
+                    <li>Thay phớt cổ máy Yamaha chính hãng</li>
+                    <li>Kiểm tra ron nắp máy, ron cổ</li>
+                    <li>Bảo hành 3 tháng hoặc 3.000 km</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 60–90 phút</span>
+                    <span>🔧 Xe Yamaha phổ thông</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">350.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/11890963/pexels-photo-11890963.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Thay chén cổ Honda Sonic 150" loading="lazy">
             <div class="service-card-body">
                 <h3>Thay chén cổ Honda Sonic 150</h3>
+                <p class="service-detail">Dịch vụ chuyên biệt cho Honda Sonic 150 — dòng xe thể thao đòi hỏi kỹ thuật cao khi thay phớt cổ máy.</p>
+                <ul class="service-includes">
+                    <li>Tháo rã động cơ đúng quy trình kỹ thuật</li>
+                    <li>Thay phớt cổ Sonic 150 chính hãng Honda</li>
+                    <li>Kiểm tra toàn bộ ron, gioăng động cơ</li>
+                    <li>Chạy thử và kiểm tra sau sửa chữa</li>
+                    <li>Bảo hành 6 tháng hoặc 5.000 km</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 2–3 giờ</span>
+                    <span>🔧 Honda Sonic 150</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">500.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
         <div class="service-card">
             <img src="https://images.pexels.com/photos/11890980/pexels-photo-11890980.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Thay chén cổ PCX" loading="lazy">
             <div class="service-card-body">
                 <h3>Thay chén cổ xe PCX</h3>
+                <p class="service-detail">Thay phớt cổ chuyên biệt cho Honda PCX — xe tay ga cao cấp, yêu cầu kỹ thuật chuyên nghiệp và phụ tùng đúng chuẩn.</p>
+                <ul class="service-includes">
+                    <li>Tháo rã và vệ sinh cụm đầu máy PCX</li>
+                    <li>Thay phớt cổ PCX chính hãng Honda</li>
+                    <li>Kiểm tra toàn bộ ron, gioăng liên quan</li>
+                    <li>Chạy thử và kiểm tra sau sửa chữa</li>
+                    <li>Bảo hành 6 tháng hoặc 5.000 km</li>
+                </ul>
+                <div class="service-meta">
+                    <span>⏱ 2–3 giờ</span>
+                    <span>🔧 Honda PCX</span>
+                </div>
                 <div class="service-price">
                     <span class="price-current">400.000 đ</span>
                 </div>
+                <a href="/#contact" class="btn-booking">📅 Đặt lịch ngay</a>
             </div>
         </div>
     </div>

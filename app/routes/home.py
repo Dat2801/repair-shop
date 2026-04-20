@@ -3,6 +3,10 @@ from app.utils.database import get_db_connection
 
 home_bp = Blueprint('home', __name__)
 
+@home_bp.route("/services")
+def services():
+    return render_template("services.html")
+
 @home_bp.route("/")
 def index():
     conn = get_db_connection()
