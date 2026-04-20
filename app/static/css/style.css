@@ -1433,19 +1433,30 @@ footer {
 
 .footer-content {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 4rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
     margin-bottom: 2rem;
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
-    flex-wrap: wrap;
+}
+
+.footer-logo {
+    text-align: center;
+}
+
+.footer-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 6rem;
+    width: 100%;
 }
 
 .footer-section {
     text-align: center;
+    flex: 1;
 }
 
 .footer-section h3 {
