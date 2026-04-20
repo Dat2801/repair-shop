@@ -1433,13 +1433,15 @@ footer {
 
 .footer-content {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4rem;
     margin-bottom: 2rem;
-    max-width: 800px;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
+    flex-wrap: wrap;
 }
 
 .footer-section {
